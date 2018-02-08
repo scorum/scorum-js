@@ -245,6 +245,18 @@ var authority = new Serializer(
 }
 );
 
+let account_create_by_committee = new Serializer(
+    "account_create_by_committee", {
+    creator: string,
+    new_account_name: string,
+    owner: authority,
+    active: authority,
+    posting: authority,
+    memo_key: public_key,
+    json_metadata: string
+}
+);
+
 let account_create = new Serializer(
     "account_create", {
     fee: asset,
@@ -711,7 +723,7 @@ operation.st_operations = [
     transfer,
     transfer_to_vesting,
     withdraw_vesting,
-    null, // account_create_by_committee,
+    account_create_by_committee,
     account_create,
     account_create_with_delegation,
     account_update,

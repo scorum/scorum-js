@@ -96,6 +96,19 @@ module.exports = [
   },
   {
     "roles": ["active", "owner"],
+    "operation": "account_create_by_committee",
+    "params": [
+      "creator",
+      "new_account_name",
+      "owner",
+      "active",
+      "posting",
+      "memo_key",
+      "json_metadata"
+    ]
+  },
+  {
+    "roles": ["active", "owner"],
     "operation": "account_create",
     "params": [
       "fee",
