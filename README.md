@@ -32,7 +32,7 @@ https://github.com/scorum/scorum-js/tree/master/doc
 ```html
 <script src="./scorum.min.js"></script>
 <script>
-steem.api.getAccounts(['ned', 'dan'], function(err, response){
+scorum.api.getAccounts(['ned', 'dan'], function(err, response){
     console.log(err, response);
 });
 </script>
