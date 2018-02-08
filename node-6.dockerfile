@@ -1,6 +1,6 @@
 FROM node:6
-ADD ./package.json /steemjs/package.json
-WORKDIR /steemjs
+ADD ./package.json /scorumjs/package.json
+WORKDIR /scorumjs
 RUN npm install
-ADD . /steemjs
+ADD . /scorumjs
 RUN npm test

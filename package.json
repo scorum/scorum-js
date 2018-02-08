@@ -1,11 +1,11 @@
 {
-  "name": "@steemit/steem-js",
+  "name": "@scorum/scorum-js",
   "version": "0.7.1",
-  "description": "Steem.js the JavaScript API for Steem blockchain",
+  "description": "Scorum.js the JavaScript API for Scorum blockchain",
   "main": "lib/index.js",
   "scripts": {
     "test": "eslint --quiet src test; mocha -t 40000 --require babel-polyfill --require babel-register",
-    "test-auth": "npm test -- --grep 'steem.auth'",
+    "test-auth": "npm test -- --grep 'scorum.auth'",
     "build": "npm run build-browser && npm run build-node",
     "build-browser": "rm -rf dist && NODE_ENV=production node ./node_modules/webpack/bin/webpack.js && gzip -k -f ./dist/*.js && du -h ./dist/*",
     "build-node": "mkdir -p ./lib && cp -r ./src/* ./lib/ && babel ./src --out-dir ./lib",
@@ -17,20 +17,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/steemit/steem-js.git"
+    "url": "git+https://github.com/scorum/scorum-js.git"
   },
   "keywords": [
-    "steem",
-    "steemit",
+    "scorum",
     "blockchain",
-    "steemjs"
+    "scorumjs"
   ],
   "author": "Fabien (https://github.com/bonustrack)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/steemit/steem-js/issues"
+    "url": "https://github.com/scorum/scorum-js/issues"
   },
-  "homepage": "https://github.com/steemit/steem-js#readme",
+  "homepage": "https://github.com/scorum/scorum-js#readme",
   "dependencies": {
     "@steemit/rpc-auth": "^1.1.0",
     "bigi": "^1.4.2",
