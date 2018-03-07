@@ -56,7 +56,7 @@ ws://node4-testnet.scorum.com:8090<br/>
 ## Examples
 ### Broadcast Vote
 ```js
-var scorum = require('scorum-js');
+var scorum = require('@scorum/scorum-js');
 
 var wif = scorum.auth.toWif(username, password, 'posting');
 scorum.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
