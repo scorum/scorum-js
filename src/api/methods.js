@@ -388,7 +388,7 @@ export default [
     },
     {
       "api": "database_api",
-      "method": "get_vesting_delegations",
+      "method": "get_scorumpower_delegations",
       "params": ["account", "from", "limit"]
     },
     {

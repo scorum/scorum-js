@@ -182,16 +182,16 @@ let transfer = new Serializer(
 }
 );
 
-let transfer_to_vesting = new Serializer(
-    "transfer_to_vesting", {
+let transfer_to_scorumpower = new Serializer(
+    "transfer_to_scorumpower", {
     from: string,
     to: string,
     amount: asset
 }
 );
 
-let withdraw_vesting = new Serializer(
-    "withdraw_vesting", {
+let withdraw_scorumpower = new Serializer(
+    "withdraw_scorumpower", {
     account: string,
     vesting_shares: asset
 }
@@ -369,8 +369,8 @@ let comment_options = new Serializer(
 }
 );
 
-let set_withdraw_vesting_route = new Serializer(
-    "set_withdraw_vesting_route", {
+let set_withdraw_scorumpower_route = new Serializer(
+    "set_withdraw_scorumpower_route", {
     from_account: string,
     to_account: string,
     percent: uint16,
@@ -581,8 +581,8 @@ let claim_reward_balance = new Serializer(
 }
 );
 
-let delegate_vesting_shares = new Serializer(
-    "delegate_vesting_shares", {
+let delegate_scorumpower_shares = new Serializer(
+    "delegate_scorumpower_shares", {
     delegator: string,
     delegatee: string,
     vesting_shares: asset
@@ -654,8 +654,8 @@ let interest = new Serializer(
 }
 );
 
-let fill_vesting_withdraw = new Serializer(
-    "fill_vesting_withdraw", {
+let fill_scorumpower_withdraw = new Serializer(
+    "fill_scorumpower_withdraw", {
     from_account: string,
     to_account: string,
     withdrawn: asset,
@@ -701,8 +701,8 @@ let comment_payout_update = new Serializer(
 }
 );
 
-let return_vesting_delegation = new Serializer(
-    "return_vesting_delegation", {
+let return_scorumpower_delegation = new Serializer(
+    "return_scorumpower_delegation", {
     account: string,
     vesting_shares: asset
 }
@@ -721,8 +721,8 @@ operation.st_operations = [
     vote,
     comment,
     transfer,
-    transfer_to_vesting,
-    withdraw_vesting,
+    transfer_to_scorumpower,
+    withdraw_scorumpower,
     account_create_by_committee,
     account_create,
     account_create_with_delegation,
@@ -732,7 +732,7 @@ operation.st_operations = [
     account_witness_proxy,
     delete_comment,
     comment_options,
-    set_withdraw_vesting_route,
+    set_withdraw_scorumpower_route,
     prove_authority,
     request_account_recovery,
     recover_account,
@@ -745,7 +745,7 @@ operation.st_operations = [
     custom_json,
     custom_binary,
     decline_voting_rights,
-    delegate_vesting_shares,
+    delegate_scorumpower_shares,
     null, // create_budget_operation
     null, // close_budget_operation
     null, // proposal_vote_operation,
@@ -759,10 +759,10 @@ operation.st_operations = [
     comment_payout_update,
     comment_reward,
     curation_reward,
-    fill_vesting_withdraw,
+    fill_scorumpower_withdraw,
     hardfork,
     null, // producer_reward_operation
-    return_vesting_delegation,
+    return_scorumpower_delegation,
     shutdown_witness
 ];
 

@@ -34,7 +34,7 @@ module.exports = [
   },
   {
     "roles": ["active", "owner"],
-    "operation": "transfer_to_vesting",
+    "operation": "transfer_to_scorumpower",
     "params": [
       "from",
       "to",
@@ -43,7 +43,7 @@ module.exports = [
   },
   {
     "roles": ["active", "owner"],
-    "operation": "withdraw_vesting",
+    "operation": "withdraw_scorumpower",
     "params": [
       "account",
       "vesting_shares"
@@ -213,7 +213,7 @@ module.exports = [
   },
   {
     "roles": ["active", "owner"],
-    "operation": "set_withdraw_vesting_route",
+    "operation": "set_withdraw_scorumpower_route",
     "params": [
       "from_account",
       "to_account",
@@ -415,7 +415,7 @@ module.exports = [
   },
   {
     "roles": ["active", "owner"],
-    "operation": "delegate_vesting_shares",
+    "operation": "delegate_scorumpower_shares",
     "params": [
       "delegator",
       "delegatee",
@@ -475,7 +475,7 @@ module.exports = [
   },
   {
     "roles": ["active", "owner"],
-    "operation": "fill_vesting_withdraw",
+    "operation": "fill_scorumpower_withdraw",
     "params": [
       "from_account",
       "to_account",
