@@ -226,7 +226,18 @@ export default [
     },
     {
       "api": "account_stats_api",
-      "method": "get_lifetime_stats"
+      "method": "get_stats_for_time_by_account_name",
+      "params": ["account", "timeOpen"]
+    },
+    {
+      "api": "account_stats_api",
+      "method": "get_stats_for_interval_by_account_name",
+      "params": ["account", "timeStart", "timeFinish"]
+    },
+    {
+      "api": "account_stats_api",
+      "method": "get_lifetime_stats_by_account_name",
+      "params": ["account"]
     },
     {
       "api": "database_api",
