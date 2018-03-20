@@ -13,5 +13,5 @@ module.exports = {
   formatter,
   memo,
   config,
-  utils,
+  utils
 };

@@ -29,8 +29,6 @@
     "mocha": "^2.3.4"
   },
   "_babel": {
-    "presets": [
-      "es2015"
-    ]
+    "presets": ["es2015"]
   }
 }

@@ -7,3 +7,5 @@ npm-debug.log
 
 # WebStorm
 .idea
+
+.vscode

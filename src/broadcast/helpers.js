@@ -3,8 +3,12 @@ import api from '../api';
 exports = module.exports = scorumBroadcast => {
   scorumBroadcast.addAccountAuth = ({ signingKey, username, authorizedUsername, role = 'posting', weight }, cb) => {
     api.getAccounts([username], (err, [userAccount]) => {
-      if (err) { return cb(new Error(err), null); }
-      if (!userAccount) { return cb(new Error('Invalid account name'), null); }
+      if (err) {
+        return cb(new Error(err), null);
+      }
+      if (!userAccount) {
+        return cb(new Error('Invalid account name'), null);
+      }
 
       const updatedAuthority = userAccount[role];
 
@@ -38,8 +42,12 @@ exports = module.exports = scorumBroadcast => {
 
   scorumBroadcast.removeAccountAuth = ({ signingKey, username, authorizedUsername, role = 'posting' }, cb) => {
     api.getAccounts([username], (err, [userAccount]) => {
-      if (err) { return cb(new Error(err), null); }
-      if (!userAccount) { return cb(new Error('Invalid account name'), null); }
+      if (err) {
+        return cb(new Error(err), null);
+      }
+      if (!userAccount) {
+        return cb(new Error('Invalid account name'), null);
+      }
 
       const updatedAuthority = userAccount[role];
       const totalAuthorizedUser = updatedAuthority.account_auths.length;
@@ -75,8 +83,12 @@ exports = module.exports = scorumBroadcast => {
 
   scorumBroadcast.addKeyAuth = ({ signingKey, username, authorizedKey, role = 'posting', weight }, cb) => {
     api.getAccounts([username], (err, [userAccount]) => {
-      if (err) { return cb(new Error(err), null); }
-      if (!userAccount) { return cb(new Error('Invalid account name'), null); }
+      if (err) {
+        return cb(new Error(err), null);
+      }
+      if (!userAccount) {
+        return cb(new Error('Invalid account name'), null);
+      }
 
       const updatedAuthority = userAccount[role];
 
@@ -110,8 +122,12 @@ exports = module.exports = scorumBroadcast => {
 
   scorumBroadcast.removeKeyAuth = ({ signingKey, username, authorizedKey, role = 'posting' }, cb) => {
     api.getAccounts([username], (err, [userAccount]) => {
-      if (err) { return cb(new Error(err), null); }
-      if (!userAccount) { return cb(new Error('Invalid account name'), null); }
+      if (err) {
+        return cb(new Error(err), null);
+      }
+      if (!userAccount) {
+        return cb(new Error('Invalid account name'), null);
+      }
 
       const updatedAuthority = userAccount[role];
       const totalAuthorizedKey = updatedAuthority.key_auths.length;

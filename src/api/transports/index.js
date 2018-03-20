@@ -3,5 +3,5 @@ import WsTransport from './ws';
 
 export default {
   http: HttpTransport,
-  ws: WsTransport,
+  ws: WsTransport
 };

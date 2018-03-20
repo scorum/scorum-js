@@ -18,8 +18,7 @@ export default class Transport extends EventEmitter {
     else target.on(eventName, callback);
 
     return () => {
-      if (target.removeEventListener)
-        target.removeEventListener(eventName, callback);
+      if (target.removeEventListener) target.removeEventListener(eventName, callback);
       else target.removeListener(eventName, callback);
     };
   }
@@ -27,7 +26,6 @@ export default class Transport extends EventEmitter {
   send() {}
   start() {}
   stop() {}
-
 }
 
 Promise.promisifyAll(Transport.prototype);

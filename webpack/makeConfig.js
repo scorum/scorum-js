@@ -6,7 +6,7 @@ const webpack = require('webpack');
 
 const DEFAULTS = {
   isDevelopment: process.env.NODE_ENV !== 'production',
-  baseDir: path.join(__dirname, '..'),
+  baseDir: path.join(__dirname, '..')
 };
 
 function makePlugins(options) {
@@ -15,7 +15,7 @@ function makePlugins(options) {
   let plugins = [
     new Visualizer({
       filename: './statistics.html'
-    }),
+    })
   ];
 
   if (!isDevelopment) {
@@ -23,14 +23,14 @@ function makePlugins(options) {
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
         output: {
-          comments: false,
+          comments: false
         },
         minimize: true,
         compress: {
-          warnings: false,
+          warnings: false
         }
       }),
-      new webpack.optimize.AggressiveMergingPlugin(),
+      new webpack.optimize.AggressiveMergingPlugin()
     ]);
   }
 
@@ -46,20 +46,17 @@ function makeStyleLoaders(options) {
           'style',
           'css?sourceMap',
           'autoprefixer-loader?browsers=last 2 version',
-          'sass?sourceMap&sourceMapContents',
-        ],
-      },
+          'sass?sourceMap&sourceMapContents'
+        ]
+      }
     ];
   }
 
   return [
     {
       test: /\.s[ac]ss$/,
-      loader: ExtractTextPlugin.extract(
-        'style-loader',
-        'css!autoprefixer-loader?browsers=last 2 version!sass'
-      ),
-    },
+      loader: ExtractTextPlugin.extract('style-loader', 'css!autoprefixer-loader?browsers=last 2 version!sass')
+    }
   ];
 }
 
@@ -73,32 +70,34 @@ function makeConfig(options) {
     devtool: isDevelopment ? 'cheap-eval-source-map' : 'source-map',
     entry: {
       scorum: path.join(options.baseDir, 'src/browser.js'),
-      'scorum-tests': path.join(options.baseDir, 'test/api.test.js'),
+      'scorum-tests': path.join(options.baseDir, 'test/api.test.js')
     },
     output: {
       path: path.join(options.baseDir, 'dist'),
-      filename: '[name].min.js',
+      filename: '[name].min.js'
     },
     plugins: makePlugins(options),
     module: {
       loaders: [
         {
           test: /\.js?$/,
-          loader: 'babel',
+          loader: 'babel'
         },
         {
           test: /\.json?$/,
-          loader: 'json',
-        },
-      ],
-    },
+          loader: 'json'
+        }
+      ]
+    }
   };
 }
 
 if (!module.parent) {
-  console.log(makeConfig({
-    isDevelopment: process.env.NODE_ENV !== 'production',
-  }));
+  console.log(
+    makeConfig({
+      isDevelopment: process.env.NODE_ENV !== 'production'
+    })
+  );
 }
 
 exports = module.exports = makeConfig;

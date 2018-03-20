@@ -1,9 +1,9 @@
-const api = require("./api");
-const auth = require("./auth");
-const broadcast = require("./broadcast");
-const config = require("./config");
-const formatter = require("./formatter")(api);
-const utils = require("./utils");
+const api = require('./api');
+const auth = require('./auth');
+const broadcast = require('./broadcast');
+const config = require('./config');
+const formatter = require('./formatter')(api);
+const utils = require('./utils');
 
 const scorum = {
   api,
@@ -14,11 +14,11 @@ const scorum = {
   utils
 };
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   window.scorum = scorum;
 }
 
-if (typeof global !== "undefined") {
+if (typeof global !== 'undefined') {
   global.scorum = scorum;
 }
 

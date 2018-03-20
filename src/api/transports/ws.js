@@ -17,7 +17,7 @@ const debug = newDebug('scorum:ws');
 
 export default class WsTransport extends Transport {
   constructor(options = {}) {
-    super(Object.assign({id: 0}, options));
+    super(Object.assign({ id: 0 }, options));
 
     this._requests = new Map();
     this.inFlight = 0;
@@ -25,14 +25,13 @@ export default class WsTransport extends Transport {
   }
 
   start() {
-
     if (this.startPromise) {
       return this.startPromise;
     }
 
     this.startPromise = new Promise((resolve, reject) => {
       this.ws = new WebSocket(this.options.websocket);
-      this.ws.onerror = (err) => {
+      this.ws.onerror = err => {
         this.startPromise = null;
         reject(err);
       };
@@ -66,14 +65,14 @@ export default class WsTransport extends Transport {
     return this.start().then(() => {
       const deferral = {};
       new Promise((resolve, reject) => {
-        deferral.resolve = (val) => {
+        deferral.resolve = val => {
           resolve(val);
           callback(null, val);
         };
-        deferral.reject = (val) => {
+        deferral.reject = val => {
           reject(val);
           callback(val);
-        }
+        };
       });
 
       if (this.options.useAppbaseApi) {
@@ -125,8 +124,7 @@ export default class WsTransport extends Transport {
     if (errorCause) {
       const err = new Error(
         // eslint-disable-next-line prefer-template
-        (errorCause.message || 'Failed to complete operation') +
-          ' (see err.payload for the full error payload)'
+        (errorCause.message || 'Failed to complete operation') + ' (see err.payload for the full error payload)'
       );
       err.payload = message;
       _request.deferral.reject(err);
@@ -134,6 +132,5 @@ export default class WsTransport extends Transport {
       this.emit('track-performance', _request.message.method, Date.now() - _request.startedAt);
       _request.deferral.resolve(message.result);
     }
-
   }
 }

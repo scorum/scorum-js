@@ -19,3 +19,4 @@ dist/scorum-tests.min.js*
 .save
 lib
 dist
+.vscode
