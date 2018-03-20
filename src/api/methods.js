@@ -1,22 +1,8 @@
 export default [
     {
       "api": "database_api",
-      "method": "set_subscribe_callback",
-      "params": ["callback", "clearFilter"]
-    },
-    {
-      "api": "database_api",
-      "method": "set_pending_transaction_callback",
-      "params": ["cb"]
-    },
-    {
-      "api": "database_api",
       "method": "set_block_applied_callback",
       "params": ["cb"]
-    },
-    {
-      "api": "database_api",
-      "method": "cancel_all_subscriptions"
     },
     {
       "api": "database_api",
@@ -41,11 +27,6 @@ export default [
     {
       "api": "database_api",
       "method": "get_discussions_by_trending",
-      "params": ["query"]
-    },
-    {
-      "api": "database_api",
-      "method": "get_discussions_by_trending30",
       "params": ["query"]
     },
     {
@@ -85,16 +66,6 @@ export default [
     },
     {
       "api": "database_api",
-      "method": "get_discussions_by_feed",
-      "params": ["query"]
-    },
-    {
-      "api": "database_api",
-      "method": "get_discussions_by_blog",
-      "params": ["query"]
-    },
-    {
-      "api": "database_api",
       "method": "get_discussions_by_comments",
       "params": ["query"]
     },
@@ -125,26 +96,6 @@ export default [
     },
     {
       "api": "database_api",
-      "method": "get_trending_categories",
-      "params": ["after", "limit"]
-    },
-    {
-      "api": "database_api",
-      "method": "get_best_categories",
-      "params": ["after", "limit"]
-    },
-    {
-      "api": "database_api",
-      "method": "get_active_categories",
-      "params": ["after", "limit"]
-    },
-    {
-      "api": "database_api",
-      "method": "get_recent_categories",
-      "params": ["after", "limit"]
-    },
-    {
-      "api": "database_api",
       "method": "get_config"
     },
     {
@@ -154,14 +105,6 @@ export default [
     {
       "api": "database_api",
       "method": "get_chain_properties"
-    },
-    {
-      "api": "database_api",
-      "method": "get_feed_history"
-    },
-    {
-      "api": "database_api",
-      "method": "get_current_median_history_price"
     },
     {
       "api": "database_api",
@@ -203,11 +146,6 @@ export default [
     {
       "api": "database_api",
       "method": "get_account_count"
-    },
-    {
-      "api": "database_api",
-      "method": "get_conversion_requests",
-      "params": ["accountName"]
     },
     {
       "api": "account_history_api",
@@ -263,31 +201,6 @@ export default [
       "api": "database_api",
       "method": "get_account_bandwidth",
       "params": ["account", "bandwidthType"]
-    },
-    {
-      "api": "database_api",
-      "method": "get_savings_withdraw_from",
-      "params": ["account"]
-    },
-    {
-      "api": "database_api",
-      "method": "get_savings_withdraw_to",
-      "params": ["account"]
-    },
-    {
-      "api": "database_api",
-      "method": "get_order_book",
-      "params": ["limit"]
-    },
-    {
-      "api": "database_api",
-      "method": "get_open_orders",
-      "params": ["owner"]
-    },
-    {
-      "api": "database_api",
-      "method": "get_liquidity_queue",
-      "params": ["startAccount", "limit"]
     },
     {
       "api": "database_api",
@@ -379,10 +292,6 @@ export default [
     },
     {
       "api": "database_api",
-      "method": "get_miner_queue"
-    },
-    {
-      "api": "database_api",
       "method": "get_reward_fund",
       "params": ["name"]
     },
@@ -404,57 +313,6 @@ export default [
     {
       "api": "login_api",
       "method": "get_version"
-    },
-    {
-      "api": "follow_api",
-      "method": "get_followers",
-      "params": ["following", "startFollower", "followType", "limit"]
-    },
-    {
-      "api": "follow_api",
-      "method": "get_following",
-      "params": ["follower", "startFollowing", "followType", "limit"]
-    },
-    {
-      "api": "follow_api",
-      "method": "get_follow_count",
-      "params": ["account"]
-    },
-    {
-      "api": "follow_api",
-      "method": "get_feed_entries",
-      "params": ["account", "entryId", "limit"
-      ]
-    },
-    {
-      "api": "follow_api",
-      "method": "get_feed",
-      "params": ["account", "entryId", "limit"]
-    },
-    {
-      "api": "follow_api",
-      "method": "get_blog_entries",
-      "params": ["account", "entryId", "limit"]
-    },
-    {
-      "api": "follow_api",
-      "method": "get_blog",
-      "params": ["account", "entryId", "limit"]
-    },
-    {
-      "api": "follow_api",
-      "method": "get_account_reputations",
-      "params": ["lowerBoundName", "limit"]
-    },
-    {
-      "api": "follow_api",
-      "method": "get_reblogged_by",
-      "params": ["author", "permlink"]
-    },
-    {
-      "api": "follow_api",
-      "method": "get_blog_authors",
-      "params": ["blogAccount"]
     },
     {
       "api": "network_broadcast_api",
@@ -480,41 +338,5 @@ export default [
       "api": "network_broadcast_api",
       "method": "set_max_block_age",
       "params": ["maxBlockAge"]
-    },
-    {
-      "api": "market_history_api",
-      "method": "get_ticker",
-      "params": []
-    },
-    {
-      "api": "market_history_api",
-      "method": "get_volume",
-      "params": []
-    },
-    {
-      "api": "market_history_api",
-      "method": "get_order_book",
-      "method_name": "getMarketOrderBook",
-      "params": ["limit"]
-    },
-    {
-      "api": "market_history_api",
-      "method": "get_trade_history",
-      "params": ["start", "end", "limit"]
-    },
-    {
-      "api": "market_history_api",
-      "method": "get_recent_trades",
-      "params": ["limit"]
-    },
-    {
-      "api": "market_history_api",
-      "method": "get_market_history",
-      "params": ["bucket_seconds" , "start", "end"]
-    },
-    {
-      "api": "market_history_api",
-      "method": "get_market_history_buckets",
-      "params": []
     }
 ];

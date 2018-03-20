@@ -4,24 +4,24 @@ import newDebug from 'debug';
 import broadcastHelpers from './helpers';
 import formatterFactory from '../formatter';
 import operations from './operations';
-import steemApi from '../api';
-import steemAuth from '../auth';
+import scorumAPI from '../api';
+import scorumAuth from '../auth';
 import { camelCase } from '../utils';
 
-const debug = newDebug('steem:broadcast');
+const debug = newDebug('scorum:broadcast');
 const noop = function() {}
-const formatter = formatterFactory(steemApi);
+const formatter = formatterFactory(scorumAPI);
 
-const steemBroadcast = {};
+const scorumBroadcast = {};
 
 // Base transaction logic -----------------------------------------------------
 
 /**
- * Sign and broadcast transactions on the steem network
+ * Sign and broadcast transactions on the scorum network
  */
 
-steemBroadcast.send = function steemBroadcast$send(tx, privKeys, callback) {
-  const resultP = steemBroadcast._prepareTransaction(tx)
+scorumBroadcast.send = function scorumBroadcast$send(tx, privKeys, callback) {
+  const resultP = scorumBroadcast._prepareTransaction(tx)
     .then((transaction) => {
       debug(
         'Signing transaction (transaction, transaction.operations)',
@@ -29,7 +29,7 @@ steemBroadcast.send = function steemBroadcast$send(tx, privKeys, callback) {
       );
       return Promise.join(
         transaction,
-        steemAuth.signTransaction(transaction, privKeys)
+        scorumAuth.signTransaction(transaction, privKeys)
       );
     })
     .spread((transaction, signedTransaction) => {
@@ -37,7 +37,7 @@ steemBroadcast.send = function steemBroadcast$send(tx, privKeys, callback) {
         'Broadcasting transaction (transaction, transaction.operations)',
         transaction, transaction.operations
       );
-      return steemApi.broadcastTransactionSynchronousAsync(
+      return scorumAPI.broadcastTransactionSynchronousAsync(
         signedTransaction
       ).then((result) => {
         return Object.assign({}, result, signedTransaction);
@@ -47,14 +47,14 @@ steemBroadcast.send = function steemBroadcast$send(tx, privKeys, callback) {
   resultP.nodeify(callback || noop);
 };
 
-steemBroadcast._prepareTransaction = function steemBroadcast$_prepareTransaction(tx) {
-  const propertiesP = steemApi.getDynamicGlobalPropertiesAsync();
+scorumBroadcast._prepareTransaction = function scorumBroadcast$_prepareTransaction(tx) {
+  const propertiesP = scorumAPI.getDynamicGlobalPropertiesAsync();
   return propertiesP
     .then((properties) => {
       // Set defaults on the transaction
       const chainDate = new Date(properties.time + 'Z');
       const refBlockNum = (properties.last_irreversible_block_num - 1) & 0xFFFF;
-      return steemApi.getBlockAsync(properties.last_irreversible_block_num).then((block) => {
+      return scorumAPI.getBlockAsync(properties.last_irreversible_block_num).then((block) => {
         const headBlockId = block.previous;
         return Object.assign({
           ref_block_num: refBlockNum,
@@ -79,14 +79,14 @@ operations.forEach((operation) => {
     operationParams.indexOf('parent_permlink') !== -1 &&
     operationParams.indexOf('parent_permlink') !== -1;
 
-  steemBroadcast[`${operationName}With`] =
-    function steemBroadcast$specializedSendWith(wif, options, callback) {
+  scorumBroadcast[`${operationName}With`] =
+    function scorumBroadcast$specializedSendWith(wif, options, callback) {
       debug(`Sending operation "${operationName}" with`, {options, callback});
       const keys = {};
       if (operation.roles && operation.roles.length) {
         keys[operation.roles[0]] = wif; // TODO - Automatically pick a role? Send all?
       }
-      return steemBroadcast.send({
+      return scorumBroadcast.send({
         extensions: [],
         operations: [[operation.operation, Object.assign(
           {},
@@ -101,21 +101,21 @@ operations.forEach((operation) => {
       }, keys, callback);
     };
 
-  steemBroadcast[operationName] =
-    function steemBroadcast$specializedSend(wif, ...args) {
+  scorumBroadcast[operationName] =
+    function scorumBroadcast$specializedSend(wif, ...args) {
       debug(`Parsing operation "${operationName}" with`, {args});
       const options = operationParams.reduce((memo, param, i) => {
         memo[param] = args[i]; // eslint-disable-line no-param-reassign
         return memo;
       }, {});
       const callback = args[operationParams.length];
-      return steemBroadcast[`${operationName}With`](wif, options, callback);
+      return scorumBroadcast[`${operationName}With`](wif, options, callback);
     };
 });
 
 const toString = obj => typeof obj === 'object' ? JSON.stringify(obj) : obj;
-broadcastHelpers(steemBroadcast);
+broadcastHelpers(scorumBroadcast);
 
-Promise.promisifyAll(steemBroadcast);
+Promise.promisifyAll(scorumBroadcast);
 
-exports = module.exports = steemBroadcast;
+exports = module.exports = scorumBroadcast;

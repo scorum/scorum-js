@@ -46,52 +46,7 @@ module.exports = [
     "operation": "withdraw_scorumpower",
     "params": [
       "account",
-      "vesting_shares"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "limit_order_create",
-    "params": [
-      "owner",
-      "orderid",
-      "amount_to_sell",
-      "min_to_receive",
-      "fill_or_kill",
-      "expiration"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "limit_order_cancel",
-    "params": [
-      "owner",
-      "orderid"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "price",
-    "params": [
-      "base",
-      "quote"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "feed_publish",
-    "params": [
-      "publisher",
-      "exchange_rate"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "convert",
-    "params": [
-      "owner",
-      "requestid",
-      "amount"
+      "scorumpower"
     ]
   },
   {
@@ -119,6 +74,22 @@ module.exports = [
       "posting",
       "memo_key",
       "json_metadata"
+    ]
+  },
+  {
+    "roles": ["active", "owner"],
+    "operation": "account_create_with_delegation",
+    "params": [
+      "fee",
+      "delegation",
+      "creator",
+      "new_account_name",
+      "owner",
+      "active",
+      "posting",
+      "memo_key",
+      "json_metadata",
+      "extensions"
     ]
   },
   {
@@ -162,40 +133,11 @@ module.exports = [
     ]
   },
   {
-    "roles": ["active", "owner"],
-    "operation": "pow",
-    "params": [
-      "worker",
-      "input",
-      "signature",
-      "work"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "custom",
-    "params": [
-      "required_auths",
-      "id",
-      "data"
-    ]
-  },
-  {
     "roles": ["posting", "active", "owner"],
     "operation": "delete_comment",
     "params": [
       "author",
       "permlink"
-    ]
-  },
-  {
-    "roles": ["posting", "active", "owner"],
-    "operation": "custom_json",
-    "params": [
-      "required_auths",
-      "required_posting_auths",
-      "id",
-      "json"
     ]
   },
   {
@@ -213,7 +155,7 @@ module.exports = [
   },
   {
     "roles": ["active", "owner"],
-    "operation": "set_withdraw_scorumpower_route",
+    "operation": "set_withdraw_scorumpower_route_to_account",
     "params": [
       "from_account",
       "to_account",
@@ -223,23 +165,11 @@ module.exports = [
   },
   {
     "roles": ["active", "owner"],
-    "operation": "limit_order_create2",
+    "operation": "set_withdraw_scorumpower_route_to_dev_pool",
     "params": [
-      "owner",
-      "orderid",
-      "amount_to_sell",
-      "exchange_rate",
-      "fill_or_kill",
-      "expiration"
-    ]
-  },
-  {
-    "roles": ["posting", "active", "owner"],
-    "operation": "challenge_authority",
-    "params": [
-      "challenger",
-      "challenged",
-      "require_owner"
+      "from_account",
+      "percent",
+      "auto_vest"
     ]
   },
   {
@@ -281,18 +211,14 @@ module.exports = [
   },
   {
     "roles": ["active", "owner"],
-    "operation": "escrow_transfer",
+    "operation": "escrow_approve",
     "params": [
       "from",
       "to",
       "agent",
+      "who",
       "escrow_id",
-      "sbd_amount",
-      "steem_amount",
-      "fee",
-      "ratification_deadline",
-      "escrow_expiration",
-      "json_meta"
+      "approve"
     ]
   },
   {
@@ -322,59 +248,18 @@ module.exports = [
   },
   {
     "roles": ["active", "owner"],
-    "operation": "pow2",
-    "params": [
-      "input",
-      "pow_summary"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "escrow_approve",
+    "operation": "escrow_transfer",
     "params": [
       "from",
       "to",
       "agent",
-      "who",
       "escrow_id",
-      "approve"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "transfer_to_savings",
-    "params": [
-      "from",
-      "to",
-      "amount",
-      "memo"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "transfer_from_savings",
-    "params": [
-      "from",
-      "request_id",
-      "to",
-      "amount",
-      "memo"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "cancel_transfer_from_savings",
-    "params": [
-      "from",
-      "request_id"
-    ]
-  },
-  {
-    "roles": ["posting", "active", "owner"],
-    "operation": "custom_binary",
-    "params": [
-      "id",
-      "data"
+      "sbd_amount",
+      "steem_amount",
+      "fee",
+      "ratification_deadline",
+      "escrow_expiration",
+      "json_meta"
     ]
   },
   {
@@ -387,65 +272,46 @@ module.exports = [
   },
   {
     "roles": ["active", "owner"],
-    "operation": "reset_account",
-    "params": [
-      "reset_account",
-      "account_to_reset",
-      "new_owner_authority"
-    ]
-  },
-  {
-    "roles": ["owner", "posting"],
-    "operation": "set_reset_account",
-    "params": [
-      "account",
-      "current_reset_account",
-      "reset_account"
-    ]
-  },
-  {
-    "roles": ["posting", "active", "owner"],
-    "operation": "claim_reward_balance",
-    "params": [
-      "account",
-      "reward_steem",
-      "reward_sbd",
-      "reward_vests"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "delegate_scorumpower_shares",
+    "operation": "delegate_scorumpower",
     "params": [
       "delegator",
       "delegatee",
-      "vesting_shares"
+      "scorumpower"
     ]
   },
   {
     "roles": ["active", "owner"],
-    "operation": "account_create_with_delegation",
+    "operation": "create_budget",
     "params": [
-      "fee",
-      "delegation",
+      "owner",
+      "content_permlink",
+      "balance",
+      "deadline"
+    ]
+  },
+  {
+    "roles": ["active", "owner"],
+    "operation": "close_budget",
+    "params": [
+      "budget_id",
+      "owner"
+    ]
+  },
+  {
+    "roles": ["active", "owner"],
+    "operation": "proposal_vote",
+    "params": [
+      "voting_account",
+      "proposal_id"
+    ]
+  },
+  {
+    "roles": ["active", "owner"],
+    "operation": "proposal_create",
+    "params": [
       "creator",
-      "new_account_name",
-      "owner",
-      "active",
-      "posting",
-      "memo_key",
-      "json_metadata",
-      "extensions"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "fill_convert_request",
-    "params": [
-      "owner",
-      "requestid",
-      "amount_in",
-      "amount_out"
+      "lifetime_sec",
+      "operation"
     ]
   },
   {
@@ -459,22 +325,6 @@ module.exports = [
   },
   {
     "roles": ["active", "owner"],
-    "operation": "liquidity_reward",
-    "params": [
-      "owner",
-      "payout"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "interest",
-    "params": [
-      "owner",
-      "interest"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
     "operation": "fill_scorumpower_withdraw",
     "params": [
       "from_account",
@@ -482,28 +332,19 @@ module.exports = [
       "withdrawn",
       "deposited"
     ]
-  },
-  {
-    "roles": ["posting", "active", "owner"],
-    "operation": "fill_order",
-    "params": [
-      "current_owner",
-      "current_orderid",
-      "current_pays",
-      "open_owner",
-      "open_orderid",
-      "open_pays"
-    ]
-  },
-  {
-    "roles": ["posting", "active", "owner"],
-    "operation": "fill_transfer_from_savings",
-    "params": [
-      "from",
-      "to",
-      "amount",
-      "request_id",
-      "memo"
-    ]
   }
+  /**
+   * @TODO: Add support virtual operations:
+   * atomicswap_initiate_operation
+   * atomicswap_redeem_operation
+   * atomicswap_refund_operation
+   * author_reward
+   * comment_benefactor_reward
+   * comment_payout_update
+   * curation_reward
+   * hardfork
+   * producer_reward
+   * return_scorumpower_delegation
+   * shutdown_witness
+   */
 ];

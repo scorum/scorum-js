@@ -1,82 +1,69 @@
 import get from "lodash/get";
 import { key_utils } from "./auth/ecc";
 
-module.exports = steemAPI => {
+module.exports = scorumAPI => {
   function numberWithCommas(x) {
     return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  function vestingSteem(account, gprops) {
+  function scorumPower(account, gprops) {
     const vests = parseFloat(account.vesting_shares.split(" ")[0]);
     const total_vests = parseFloat(gprops.total_vesting_shares.split(" ")[0]);
-    const total_vest_steem = parseFloat(
+    const total_vest_scorum = parseFloat(
       gprops.total_vesting_fund_steem.split(" ")[0]
     );
-    const vesting_steemf = total_vest_steem * (vests / total_vests);
-    return vesting_steemf;
+    const scorumpowerf = total_vest_scorum * (vests / total_vests);
+    return scorumpowerf;
   }
 
   function processOrders(open_orders, assetPrecision) {
-    const sbdOrders = !open_orders
+    const scorumpowerOrders = !open_orders
       ? 0
       : open_orders.reduce((o, order) => {
-          if (order.sell_price.base.indexOf("SBD") !== -1) {
+          if (order.sell_price.base.indexOf("SCR") !== -1) {
             o += order.for_sale;
           }
           return o;
         }, 0) / assetPrecision;
 
-    const steemOrders = !open_orders
-      ? 0
-      : open_orders.reduce((o, order) => {
-          if (order.sell_price.base.indexOf("STEEM") !== -1) {
-            o += order.for_sale;
-          }
-          return o;
-        }, 0) / assetPrecision;
-
-    return { steemOrders, sbdOrders };
+    return { scorumpowerOrders };
   }
 
   function calculateSaving(savings_withdraws) {
     let savings_pending = 0;
-    let savings_sbd_pending = 0;
     savings_withdraws.forEach(withdraw => {
       const [amount, asset] = withdraw.amount.split(" ");
-      if (asset === "STEEM") savings_pending += parseFloat(amount);
-      else {
-        if (asset === "SBD") savings_sbd_pending += parseFloat(amount);
-      }
+      savings_pending += parseFloat(amount);
     });
-    return { savings_pending, savings_sbd_pending };
+    return { savings_pending };
   }
 
   function estimateAccountValue(
     account,
-    { gprops, feed_price, open_orders, savings_withdraws, vesting_steem } = {}
+    { gprops, feed_price, open_orders, savings_withdraws, scorum_power } = {}
   ) {
     const promises = [];
     const username = account.name;
     const assetPrecision = 1000;
     let orders, savings;
 
-    if (!vesting_steem || !feed_price) {
+    if (!scorum_power || !feed_price) {
       if (!gprops || !feed_price) {
         promises.push(
-          steemAPI.getStateAsync(`/@{username}`).then(data => {
+          scorumAPI.getStateAsync(`/@{username}`).then(data => {
             gprops = data.props;
             feed_price = data.feed_price;
-            vesting_steem = vestingSteem(account, gprops);
+            scorum_power = scorumPower(account, gprops);
           })
         );
       } else {
-        vesting_steem = vestingSteem(account, gprops);
+        scorum_power = scorumPower(account, gprops);
       }
     }
 
     if (!open_orders) {
       promises.push(
-        steemAPI.getOpenOrdersAsync(username).then(open_orders => {
+        scorumAPI.getOpenOrdersAsync(username).then(open_orders => {
           orders = processOrders(open_orders, assetPrecision);
         })
       );
@@ -86,7 +73,7 @@ module.exports = steemAPI => {
 
     if (!savings_withdraws) {
       promises.push(
-        steemAPI
+        scorumAPI
           .getSavingsWithdrawFromAsync(username)
           .then(savings_withdraws => {
             savings = calculateSaving(savings_withdraws);
@@ -97,14 +84,14 @@ module.exports = steemAPI => {
     }
 
     return Promise.all(promises).then(() => {
-      let price_per_steem = undefined;
+      let price_per_scorum = undefined;
       const { base, quote } = feed_price;
-      if (/ SBD$/.test(base) && / STEEM$/.test(quote))
-        price_per_steem = parseFloat(base.split(" ")[0]);
+      if (/ SCR$/.test(quote))
+        price_per_scorum = parseFloat(base.split(" ")[0]);
       const savings_balance = account.savings_balance;
       const savings_sbd_balance = account.savings_sbd_balance;
-      const balance_steem = parseFloat(account.balance.split(" ")[0]);
-      const saving_balance_steem = parseFloat(savings_balance.split(" ")[0]);
+      const balance_scorum = parseFloat(account.balance.split(" ")[0]);
+      const saving_balance_scorum = parseFloat(savings_balance.split(" ")[0]);
       const sbd_balance = parseFloat(account.sbd_balance);
       const sbd_balance_savings = parseFloat(savings_sbd_balance.split(" ")[0]);
 
@@ -130,14 +117,14 @@ module.exports = steemAPI => {
         orders.sbdOrders +
         conversionValue;
 
-      const total_steem =
-        vesting_steem +
-        balance_steem +
-        saving_balance_steem +
+      const total_scorum =
+        scorum_power +
+        balance_scorum +
+        saving_balance_scorum +
         savings.savings_pending +
-        orders.steemOrders;
+        orders.scorumpowerOrders;
 
-      return (total_steem * price_per_steem + total_sbd).toFixed(2);
+      return (total_scorum * price_per_scorum + total_sbd).toFixed(2);
     });
   }
 
@@ -167,14 +154,14 @@ module.exports = steemAPI => {
       return out;
     },
 
-    vestToSteem: function(
-      vestingShares,
-      totalVestingShares,
+    scorumPowerToScr: function(
+      scorumPower,
+      totalsSorumPower,
       totalVestingFundSteem
     ) {
       return (
         parseFloat(totalVestingFundSteem) *
-        (parseFloat(vestingShares) / parseFloat(totalVestingShares))
+        (parseFloat(scorumPower) / parseFloat(totalScorumPower))
       );
     },
 
@@ -191,7 +178,7 @@ module.exports = steemAPI => {
       return amount.toFixed(3) + " " + asset;
     },
     numberWithCommas,
-    vestingSteem,
+    scorumPower,
     estimateAccountValue,
     createSuggestedPassword
   };

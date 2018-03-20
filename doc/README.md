@@ -553,7 +553,7 @@ scorum.broadcast.accountCreateWithDelegation(wif, fee, delegation, creator, newA
 ```
 ### Delegate Vesting Shares
 ```
-scorum.broadcast.delegateVestingShares(wif, delegator, delegatee, vesting_shares, function(err, result) {
+scorum.broadcast.delegateVestingShares(wif, delegator, delegatee, scorumpower, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -931,7 +931,7 @@ console.log(reputation);
 
 ### Vest To Scorum
 ```
-var scorumPower = scorum.formatter.vestToSteem(vestingShares, totalVestingShares, totalVestingFundScorum);
+var scorumPower = scorum.formatter.scorumPowerToScr(scorumPower, totalscorumPower, totalVestingFundScorum);
 console.log(scorumPower);
 ```
 

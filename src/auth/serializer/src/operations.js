@@ -1,36 +1,3 @@
-
-// This file is merge updated from steemd's js_operation_serializer program.
-/*
-
-./js_operation_serializer |
-sed 's/void/future_extensions/g'|
-sed 's/steemit_protocol:://g'|
-sed 's/14static_variantIJNS_12fixed_stringINSt3__14pairIyyEEEEEEE/string/g'|
-sed 's/steemit_future_extensions/future_extensions/g'|
-sed 's/steemit_protocol_//g' > tmp.coffee
-
-*/
-// coffee tmp.coffee # fix errors until you see: `ChainTypes is not defined`
-
-/*
-
-   remove these 7 lines from tmp.coffee:
-
-static_variant [
-    pow2
-    equihash_pow
-] = static_variant [
-    pow2
-    equihash_pow
-]
-
-*/
-
-// npm i -g decaffeinate
-// decaffeinate tmp.coffee
-
-// Merge tmp.js - See "Generated code follows" below
-
 import types from "./types"
 import SerializerImpl from "./serializer"
 
@@ -51,14 +18,11 @@ const future_extensions = types.void
 const hardfork_version_vote = types.void
 const version = types.void
 
-// Place-holder, their are dependencies on "operation" .. The final list of
-// operations is not avialble until the very end of the generated code.
-// See: operation.st_operations = ...
 const operation = static_variant();
 module.exports.operation = operation;
 
 // For module.exports
-const Serializer=function(operation_name, serilization_types_object){
+const Serializer = function(operation_name, serilization_types_object){
     const s = new SerializerImpl(operation_name, serilization_types_object);
     return module.exports[operation_name] = s;
 }
@@ -96,59 +60,12 @@ let asset = new Serializer(
 Replace: authority.prototype.account_authority_map
 With: map((string), (uint16))
 */
-let signed_transaction = new Serializer(
-    "signed_transaction", {
-    ref_block_num: uint16,
-    ref_block_prefix: uint32,
-    expiration: time_point_sec,
-    operations: array(operation),
-    extensions: set(future_extensions),
-    signatures: array(bytes(65))
-}
-);
 
-let signed_block = new Serializer(
-    "signed_block", {
-    previous: bytes(20),
-    timestamp: time_point_sec,
-    witness: string,
-    transaction_merkle_root: bytes(20),
-    extensions: set(static_variant([
-        future_extensions,
-        version,
-        hardfork_version_vote
-    ])),
-    witness_signature: bytes(65),
-    transactions: array(signed_transaction)
-}
-);
-
-let block_header = new Serializer(
-    "block_header", {
-    previous: bytes(20),
-    timestamp: time_point_sec,
-    witness: string,
-    transaction_merkle_root: bytes(20),
-    extensions: set(static_variant([
-        future_extensions,
-        version,
-        hardfork_version_vote
-    ]))
-}
-);
-
-let signed_block_header = new Serializer(
-    "signed_block_header", {
-    previous: bytes(20),
-    timestamp: time_point_sec,
-    witness: string,
-    transaction_merkle_root: bytes(20),
-    extensions: set(static_variant([
-        future_extensions,
-        version,
-        hardfork_version_vote
-    ])),
-    witness_signature: bytes(65)
+const authority = new Serializer(
+  "authority", {
+  weight_threshold: uint32,
+  account_auths: map((string), (uint16)),
+  key_auths: map((public_key), (uint16))
 }
 );
 
@@ -193,55 +110,7 @@ let transfer_to_scorumpower = new Serializer(
 let withdraw_scorumpower = new Serializer(
     "withdraw_scorumpower", {
     account: string,
-    vesting_shares: asset
-}
-);
-
-let limit_order_create = new Serializer(
-    "limit_order_create", {
-    owner: string,
-    orderid: uint32,
-    amount_to_sell: asset,
-    min_to_receive: asset,
-    fill_or_kill: bool,
-    expiration: time_point_sec
-}
-);
-
-let limit_order_cancel = new Serializer(
-    "limit_order_cancel", {
-    owner: string,
-    orderid: uint32
-}
-);
-
-let price = new Serializer(
-    "price", {
-    base: asset,
-    quote: asset
-}
-);
-
-let feed_publish = new Serializer(
-    "feed_publish", {
-    publisher: string,
-    exchange_rate: price
-}
-);
-
-let convert = new Serializer(
-    "convert", {
-    owner: string,
-    requestid: uint32,
-    amount: asset
-}
-);
-
-var authority = new Serializer(
-    "authority", {
-    weight_threshold: uint32,
-    account_auths: map((string), (uint16)),
-    key_auths: map((public_key), (uint16))
+    scorumpower: asset
 }
 );
 
@@ -270,6 +139,21 @@ let account_create = new Serializer(
 }
 );
 
+let account_create_with_delegation = new Serializer(
+  "account_create_with_delegation", {
+  fee: asset,
+  delegation: asset,
+  creator: string,
+  new_account_name: string,
+  owner: authority,
+  active: authority,
+  posting: authority,
+  memo_key: public_key,
+  json_metadata: string,
+  extensions: set(future_extensions)
+}
+);
+
 let account_update = new Serializer(
     "account_update", {
     account: string,
@@ -281,7 +165,7 @@ let account_update = new Serializer(
 }
 );
 
-let chain_properties = new Serializer(
+const chain_properties = new Serializer(
     "chain_properties", {
     account_creation_fee: asset,
     maximum_block_size: uint32,
@@ -314,44 +198,10 @@ let account_witness_proxy = new Serializer(
 }
 );
 
-let pow = new Serializer(
-    "pow", {
-    worker: public_key,
-    input: bytes(32),
-    signature: bytes(65),
-    work: bytes(32)
-}
-);
-
-let custom = new Serializer(
-    "custom", {
-    required_auths: set(string),
-    id: uint16,
-    data: bytes()
-}
-);
-
-let report_over_production = new Serializer(
-    "report_over_production", {
-    reporter: string,
-    first_block: signed_block_header,
-    second_block: signed_block_header
-}
-);
-
 let delete_comment = new Serializer(
     "delete_comment", {
     author: string,
     permlink: string
-}
-);
-
-let custom_json = new Serializer(
-    "custom_json", {
-    required_auths: set(string),
-    required_posting_auths: set(string),
-    id: string,
-    json: string
 }
 );
 
@@ -369,8 +219,8 @@ let comment_options = new Serializer(
 }
 );
 
-let set_withdraw_scorumpower_route = new Serializer(
-    "set_withdraw_scorumpower_route", {
+let set_withdraw_scorumpower_route_to_account = new Serializer(
+    "set_withdraw_scorumpower_route_to_account", {
     from_account: string,
     to_account: string,
     percent: uint16,
@@ -378,22 +228,11 @@ let set_withdraw_scorumpower_route = new Serializer(
 }
 );
 
-let limit_order_create2 = new Serializer(
-    "limit_order_create2", {
-    owner: string,
-    orderid: uint32,
-    amount_to_sell: asset,
-    exchange_rate: price,
-    fill_or_kill: bool,
-    expiration: time_point_sec
-}
-);
-
-let challenge_authority = new Serializer(
-    "challenge_authority", {
-    challenger: string,
-    challenged: string,
-    require_owner: bool
+let set_withdraw_scorumpower_route_to_dev_pool = new Serializer(
+    "set_withdraw_scorumpower_route_to_dev_pool", {
+    from_account: string,
+    percent: uint16,
+    auto_vest: bool
 }
 );
 
@@ -430,18 +269,14 @@ let change_recovery_account = new Serializer(
 }
 );
 
-let escrow_transfer = new Serializer(
-    "escrow_transfer", {
-    from: string,
-    to: string,
-    sbd_amount: asset,
-    steem_amount: asset,
-    escrow_id: uint32,
-    agent: string,
-    fee: asset,
-    json_meta: string,
-    ratification_deadline: time_point_sec,
-    escrow_expiration: time_point_sec
+let escrow_approve = new Serializer(
+  "escrow_approve", {
+  from: string,
+  to: string,
+  agent: string,
+  who: string,
+  escrow_id: uint32,
+  approve: bool
 }
 );
 
@@ -468,148 +303,64 @@ let escrow_release = new Serializer(
 }
 );
 
-let pow2_input = new Serializer(
-    "pow2_input", {
-    worker_account: string,
-    prev_block: bytes(20),
-    nonce: uint64
-}
-);
-
-let pow2 = new Serializer(
-    "pow2", {
-    input: pow2_input,
-    pow_summary: uint32
-}
-);
-
-let equihash_proof = new Serializer(
-    "equihash_proof", {
-    n: uint32,
-    k: uint32,
-    seed: bytes(32),
-    inputs: array(uint32)
-}
-);
-
-let equihash_pow = new Serializer(
-    "equihash_pow", {
-    input: pow2_input,
-    proof: equihash_proof,
-    prev_block: bytes(20),
-    pow_summary: uint32
-}
-);
-
-let escrow_approve = new Serializer(
-    "escrow_approve", {
-    from: string,
-    to: string,
-    agent: string,
-    who: string,
-    escrow_id: uint32,
-    approve: bool
-}
-);
-
-let transfer_to_savings = new Serializer(
-    "transfer_to_savings", {
-    from: string,
-    to: string,
-    amount: asset,
-    memo: string
-}
-);
-
-let transfer_from_savings = new Serializer(
-    "transfer_from_savings", {
-    from: string,
-    request_id: uint32,
-    to: string,
-    amount: asset,
-    memo: string
-}
-);
-
-let cancel_transfer_from_savings = new Serializer(
-    "cancel_transfer_from_savings", {
-    from: string,
-    request_id: uint32
-}
-);
-
-let custom_binary = new Serializer(
-    "custom_binary", {
-    required_owner_auths: set(string),
-    required_active_auths: set(string),
-    required_posting_auths: set(string),
-    required_auths: array(authority),
-    id: string,
-    data: bytes()
+let escrow_transfer = new Serializer(
+  "escrow_transfer", {
+  from: string,
+  to: string,
+  sbd_amount: asset,
+  steem_amount: asset,
+  escrow_id: uint32,
+  agent: string,
+  fee: asset,
+  json_meta: string,
+  ratification_deadline: time_point_sec,
+  escrow_expiration: time_point_sec
 }
 );
 
 let decline_voting_rights = new Serializer(
-    "decline_voting_rights", {
-    account: string,
-    decline: bool
+  "decline_voting_rights", {
+  account: string,
+  decline: bool
 }
 );
 
-let reset_account = new Serializer(
-    "reset_account", {
-    reset_account: string,
-    account_to_reset: string,
-    new_owner_authority: authority
-}
-);
-
-let set_reset_account = new Serializer(
-    "set_reset_account", {
-    account: string,
-    current_reset_account: string,
-    reset_account: string
-}
-);
-
-let claim_reward_balance = new Serializer(
-    "claim_reward_balance", {
-    account: string,
-    reward_steem: asset,
-    reward_sbd: asset,
-    reward_vests: asset
-}
-);
-
-let delegate_scorumpower_shares = new Serializer(
-    "delegate_scorumpower_shares", {
+let delegate_scorumpower = new Serializer(
+    "delegate_scorumpower", {
     delegator: string,
     delegatee: string,
-    vesting_shares: asset
+    scorumpower: asset
 }
 );
 
-let account_create_with_delegation = new Serializer(
-    "account_create_with_delegation", {
-    fee: asset,
-    delegation: asset,
-    creator: string,
-    new_account_name: string,
-    owner: authority,
-    active: authority,
-    posting: authority,
-    memo_key: public_key,
-    json_metadata: string,
-    extensions: set(future_extensions)
-}
-);
-
-let fill_convert_request = new Serializer(
-    "fill_convert_request", {
+let create_budget = new Serializer(
+    "create_budget", {
     owner: string,
-    requestid: uint32,
-    amount_in: asset,
-    amount_out: asset
+    content_permlink: string,
+    balance: asset,
+    deadline: time_point_sec
+}
+);
+
+let close_budget = new Serializer(
+    "close_budget", {
+    budget_id: uint64,
+    owner: string
+}
+);
+
+let proposal_vote = new Serializer(
+    "proposal_vote", {
+    voting_account: string,
+    proposal_id: uint64
+}
+);
+
+let proposal_create = new Serializer(
+    "proposal_create", {
+    creator: string,
+    lifetime_sec: time_point_sec,
+    operation
 }
 );
 
@@ -640,20 +391,6 @@ let comment_reward = new Serializer(
 }
 );
 
-let liquidity_reward = new Serializer(
-    "liquidity_reward", {
-    owner: string,
-    payout: asset
-}
-);
-
-let interest = new Serializer(
-    "interest", {
-    owner: string,
-    interest: asset
-}
-);
-
 let fill_scorumpower_withdraw = new Serializer(
     "fill_scorumpower_withdraw", {
     from_account: string,
@@ -663,30 +400,9 @@ let fill_scorumpower_withdraw = new Serializer(
 }
 );
 
-let fill_order = new Serializer(
-    "fill_order", {
-    current_owner: string,
-    current_orderid: uint32,
-    current_pays: asset,
-    open_owner: string,
-    open_orderid: uint32,
-    open_pays: asset
-}
-);
-
 let shutdown_witness = new Serializer(
     "shutdown_witness",
     {owner: string}
-);
-
-let fill_transfer_from_savings = new Serializer(
-    "fill_transfer_from_savings", {
-    from: string,
-    to: string,
-    amount: asset,
-    request_id: uint32,
-    memo: string
-}
 );
 
 let hardfork = new Serializer(
@@ -704,7 +420,7 @@ let comment_payout_update = new Serializer(
 let return_scorumpower_delegation = new Serializer(
     "return_scorumpower_delegation", {
     account: string,
-    vesting_shares: asset
+    scorumpower: asset
 }
 );
 
@@ -732,7 +448,8 @@ operation.st_operations = [
     account_witness_proxy,
     delete_comment,
     comment_options,
-    set_withdraw_scorumpower_route,
+    set_withdraw_scorumpower_route_to_account,
+    set_withdraw_scorumpower_route_to_dev_pool,
     prove_authority,
     request_account_recovery,
     recover_account,
@@ -741,19 +458,15 @@ operation.st_operations = [
     escrow_dispute,
     escrow_release,
     escrow_transfer,
-    custom,
-    custom_json,
-    custom_binary,
     decline_voting_rights,
-    delegate_scorumpower_shares,
-    null, // create_budget_operation
-    null, // close_budget_operation
+    delegate_scorumpower,
+    create_budget,
+    close_budget,
     null, // proposal_vote_operation,
     null, // proposal_create_operation,
     null, // atomicswap_initiate_operation,
     null, // atomicswap_redeem_operation,
     null, // atomicswap_refund_operation,
-    // virtual operation
     author_reward,
     comment_benefactor_reward,
     comment_payout_update,
@@ -761,39 +474,7 @@ operation.st_operations = [
     curation_reward,
     fill_scorumpower_withdraw,
     hardfork,
-    null, // producer_reward_operation
+    null, // producer_reward_operation,
     return_scorumpower_delegation,
     shutdown_witness
 ];
-
-let transaction = new Serializer(
-    "transaction", {
-    ref_block_num: uint16,
-    ref_block_prefix: uint32,
-    expiration: time_point_sec,
-    operations: array(operation),
-    extensions: set(future_extensions)
-}
-);
-
-//# -------------------------------
-//#  Generated code end  S T O P
-//# -------------------------------
-
-// Custom Types (do not over-write)
-
-const encrypted_memo = new Serializer(
-    "encrypted_memo",
-    {from: public_key,
-    to: public_key,
-    nonce: uint64,
-    check: uint32,
-    encrypted: string_binary}
-);
-/*
-
-// Make sure all tests pass
-
-npm test
-
-*/
