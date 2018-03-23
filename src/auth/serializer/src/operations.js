@@ -76,6 +76,15 @@ const authority = new Serializer('authority', {
   key_auths: map(public_key, uint16)
 });
 
+let signed_transaction = new Serializer('signed_transaction', {
+  ref_block_num: uint16,
+  ref_block_prefix: uint32,
+  expiration: time_point_sec,
+  operations: array(operation),
+  extensions: set(future_extensions),
+  signatures: array(bytes(65))
+});
+
 let vote = new Serializer('vote', {
   voter: string,
   author: string,
@@ -401,3 +410,19 @@ operation.st_operations = [
   return_scorumpower_delegation,
   shutdown_witness
 ];
+
+let transaction = new Serializer('transaction', {
+  ref_block_num: uint16,
+  ref_block_prefix: uint32,
+  expiration: time_point_sec,
+  operations: array(operation),
+  extensions: set(future_extensions)
+});
+
+const encrypted_memo = new Serializer('encrypted_memo', {
+  from: public_key,
+  to: public_key,
+  nonce: uint64,
+  check: uint32,
+  encrypted: string_binary
+});

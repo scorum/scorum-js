@@ -292,6 +292,10 @@ export default [
   },
   {
     api: 'database_api',
+    method: 'lookup_proposals'
+  },
+  {
+    api: 'database_api',
     method: 'get_reward_fund',
     params: ['name']
   },
