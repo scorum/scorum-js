@@ -58,7 +58,7 @@ module.exports = [
   {
     roles: ['active', 'owner'],
     operation: 'witness_update',
-    params: ['owner', 'url', 'block_signing_key', 'props', 'fee']
+    params: ['owner', 'url', 'block_signing_key', 'props']
   },
   {
     roles: ['active', 'owner'],
@@ -178,6 +178,46 @@ module.exports = [
     roles: ['active', 'owner'],
     operation: 'proposal_create',
     params: ['creator', 'lifetime_sec', 'operation']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'registration_committee_add_member',
+    params: ['account_name']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'registration_committee_exclude_member',
+    params: ['account_name']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'registration_committee_change_quorum',
+    params: ['quorum', 'committee_quorum']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'development_committee_add_member',
+    params: ['account_name']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'development_committee_exclude_member',
+    params: ['account_name']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'development_committee_change_quorum',
+    params: ['quorum', 'committee_quorum']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'development_committee_withdraw_vesting',
+    params: ['vesting_shares']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'development_committee_transfer',
+    params: ['amount', 'to_account']
   },
   {
     roles: ['posting', 'active', 'owner'],

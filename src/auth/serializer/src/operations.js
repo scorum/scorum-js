@@ -45,38 +45,13 @@ const comment_payout_beneficiaries = new Serializer(0, {
   beneficiaries: set(beneficiaries)
 });
 
-// Custom-types after Generated code
-
-// ##  Generated code follows
-// -------------------------------
-/*
-When updating generated code (fix closing notation)
-Replace:  var operation = static_variant([
-with:     operation.st_operations = [
-
-Delete (these are custom types instead):
-let public_key = new Serializer(
-    "public_key",
-    {key_data: bytes(33)}
-);
-
-let asset = new Serializer(
-    "asset",
-    {amount: int64,
-    symbol: uint64}
-);
-
-Replace: authority.prototype.account_authority_map
-With: map((string), (uint16))
-*/
-
 const authority = new Serializer('authority', {
   weight_threshold: uint32,
   account_auths: map(string, uint16),
   key_auths: map(public_key, uint16)
 });
 
-let signed_transaction = new Serializer('signed_transaction', {
+const signed_transaction = new Serializer('signed_transaction', {
   ref_block_num: uint16,
   ref_block_prefix: uint32,
   expiration: time_point_sec,
@@ -85,14 +60,14 @@ let signed_transaction = new Serializer('signed_transaction', {
   signatures: array(bytes(65))
 });
 
-let vote = new Serializer('vote', {
+const vote = new Serializer('vote', {
   voter: string,
   author: string,
   permlink: string,
   weight: int16
 });
 
-let comment = new Serializer('comment', {
+const comment = new Serializer('comment', {
   parent_author: string,
   parent_permlink: string,
   author: string,
@@ -102,25 +77,25 @@ let comment = new Serializer('comment', {
   json_metadata: string
 });
 
-let transfer = new Serializer('transfer', {
+const transfer = new Serializer('transfer', {
   from: string,
   to: string,
   amount: asset,
   memo: string
 });
 
-let transfer_to_scorumpower = new Serializer('transfer_to_scorumpower', {
+const transfer_to_scorumpower = new Serializer('transfer_to_scorumpower', {
   from: string,
   to: string,
   amount: asset
 });
 
-let withdraw_scorumpower = new Serializer('withdraw_scorumpower', {
+const withdraw_scorumpower = new Serializer('withdraw_scorumpower', {
   account: string,
   scorumpower: asset
 });
 
-let account_create_by_committee = new Serializer('account_create_by_committee', {
+const account_create_by_committee = new Serializer('account_create_by_committee', {
   creator: string,
   new_account_name: string,
   owner: authority,
@@ -130,7 +105,7 @@ let account_create_by_committee = new Serializer('account_create_by_committee', 
   json_metadata: string
 });
 
-let account_create = new Serializer('account_create', {
+const account_create = new Serializer('account_create', {
   fee: asset,
   creator: string,
   new_account_name: string,
@@ -141,7 +116,7 @@ let account_create = new Serializer('account_create', {
   json_metadata: string
 });
 
-let account_create_with_delegation = new Serializer('account_create_with_delegation', {
+const account_create_with_delegation = new Serializer('account_create_with_delegation', {
   fee: asset,
   delegation: asset,
   creator: string,
@@ -154,7 +129,7 @@ let account_create_with_delegation = new Serializer('account_create_with_delegat
   extensions: set(future_extensions)
 });
 
-let account_update = new Serializer('account_update', {
+const account_update = new Serializer('account_update', {
   account: string,
   owner: optional(authority),
   active: optional(authority),
@@ -165,35 +140,33 @@ let account_update = new Serializer('account_update', {
 
 const chain_properties = new Serializer('chain_properties', {
   account_creation_fee: asset,
-  maximum_block_size: uint32,
-  sbd_interest_rate: uint16
+  maximum_block_size: uint32
 });
 
-let witness_update = new Serializer('witness_update', {
+const witness_update = new Serializer('witness_update', {
   owner: string,
   url: string,
   block_signing_key: public_key,
-  props: chain_properties,
-  fee: asset
+  props: chain_properties
 });
 
-let account_witness_vote = new Serializer('account_witness_vote', {
+const account_witness_vote = new Serializer('account_witness_vote', {
   account: string,
   witness: string,
   approve: bool
 });
 
-let account_witness_proxy = new Serializer('account_witness_proxy', {
+const account_witness_proxy = new Serializer('account_witness_proxy', {
   account: string,
   proxy: string
 });
 
-let delete_comment = new Serializer('delete_comment', {
+const delete_comment = new Serializer('delete_comment', {
   author: string,
   permlink: string
 });
 
-let comment_options = new Serializer('comment_options', {
+const comment_options = new Serializer('comment_options', {
   author: string,
   permlink: string,
   max_accepted_payout: asset,
@@ -203,45 +176,45 @@ let comment_options = new Serializer('comment_options', {
   extensions: set(static_variant([comment_payout_beneficiaries]))
 });
 
-let set_withdraw_scorumpower_route_to_account = new Serializer('set_withdraw_scorumpower_route_to_account', {
+const set_withdraw_scorumpower_route_to_account = new Serializer('set_withdraw_scorumpower_route_to_account', {
   from_account: string,
   to_account: string,
   percent: uint16,
   auto_vest: bool
 });
 
-let set_withdraw_scorumpower_route_to_dev_pool = new Serializer('set_withdraw_scorumpower_route_to_dev_pool', {
+const set_withdraw_scorumpower_route_to_dev_pool = new Serializer('set_withdraw_scorumpower_route_to_dev_pool', {
   from_account: string,
   percent: uint16,
   auto_vest: bool
 });
 
-let prove_authority = new Serializer('prove_authority', {
+const prove_authority = new Serializer('prove_authority', {
   challenged: string,
   require_owner: bool
 });
 
-let request_account_recovery = new Serializer('request_account_recovery', {
+const request_account_recovery = new Serializer('request_account_recovery', {
   recovery_account: string,
   account_to_recover: string,
   new_owner_authority: authority,
   extensions: set(future_extensions)
 });
 
-let recover_account = new Serializer('recover_account', {
+const recover_account = new Serializer('recover_account', {
   account_to_recover: string,
   new_owner_authority: authority,
   recent_owner_authority: authority,
   extensions: set(future_extensions)
 });
 
-let change_recovery_account = new Serializer('change_recovery_account', {
+const change_recovery_account = new Serializer('change_recovery_account', {
   account_to_recover: string,
   new_recovery_account: string,
   extensions: set(future_extensions)
 });
 
-let escrow_approve = new Serializer('escrow_approve', {
+const escrow_approve = new Serializer('escrow_approve', {
   from: string,
   to: string,
   agent: string,
@@ -250,7 +223,7 @@ let escrow_approve = new Serializer('escrow_approve', {
   approve: bool
 });
 
-let escrow_dispute = new Serializer('escrow_dispute', {
+const escrow_dispute = new Serializer('escrow_dispute', {
   from: string,
   to: string,
   agent: string,
@@ -258,7 +231,7 @@ let escrow_dispute = new Serializer('escrow_dispute', {
   escrow_id: uint32
 });
 
-let escrow_release = new Serializer('escrow_release', {
+const escrow_release = new Serializer('escrow_release', {
   from: string,
   to: string,
   agent: string,
@@ -269,7 +242,7 @@ let escrow_release = new Serializer('escrow_release', {
   steem_amount: asset
 });
 
-let escrow_transfer = new Serializer('escrow_transfer', {
+const escrow_transfer = new Serializer('escrow_transfer', {
   from: string,
   to: string,
   sbd_amount: asset,
@@ -282,41 +255,86 @@ let escrow_transfer = new Serializer('escrow_transfer', {
   escrow_expiration: time_point_sec
 });
 
-let decline_voting_rights = new Serializer('decline_voting_rights', {
+const decline_voting_rights = new Serializer('decline_voting_rights', {
   account: string,
   decline: bool
 });
 
-let delegate_scorumpower = new Serializer('delegate_scorumpower', {
+const delegate_scorumpower = new Serializer('delegate_scorumpower', {
   delegator: string,
   delegatee: string,
   scorumpower: asset
 });
 
-let create_budget = new Serializer('create_budget', {
+const create_budget = new Serializer('create_budget', {
   owner: string,
   content_permlink: string,
   balance: asset,
   deadline: time_point_sec
 });
 
-let close_budget = new Serializer('close_budget', {
+const close_budget = new Serializer('close_budget', {
   budget_id: uint64,
   owner: string
 });
 
-let proposal_vote = new Serializer('proposal_vote', {
+const proposal_vote = new Serializer('proposal_vote', {
   voting_account: string,
   proposal_id: uint64
 });
 
-let proposal_create = new Serializer('proposal_create', {
-  creator: string,
-  lifetime_sec: time_point_sec,
-  operation
+// proposal create operations
+const registration_committee_add_member = new Serializer('registration_committee_add_member', {
+  account_name: string
 });
 
-let author_reward = new Serializer('author_reward', {
+const registration_committee_exclude_member = new Serializer('registration_committee_exclude_member', {
+  account_name: string
+});
+
+const registration_committee_change_quorum = new Serializer('registration_committee_change_quorum', {
+  quorum: uint16,
+  quorum_type: string
+});
+
+const development_committee_add_member = new Serializer('development_committee_add_member', {
+  account_name: string
+});
+
+const development_committee_exclude_member = new Serializer('development_committee_exclude_member', {
+  account_name: string
+});
+
+const development_committee_change_quorum = new Serializer('development_committee_change_quorum', {
+  quorum: uint16,
+  quorum_type: string
+});
+
+const development_committee_withdraw_vesting = new Serializer('development_committee_withdraw_vesting', {
+  vesting_shares: asset
+});
+
+const development_committee_transfer = new Serializer('development_committee_transfer', {
+  amount: asset,
+  to_account: string
+});
+
+const proposal_create = new Serializer('proposal_create', {
+  creator: string,
+  lifetime_sec: uint32,
+  operation: static_variant([
+    registration_committee_add_member,
+    registration_committee_exclude_member,
+    registration_committee_change_quorum,
+    development_committee_add_member,
+    development_committee_exclude_member,
+    development_committee_change_quorum,
+    development_committee_withdraw_vesting,
+    development_committee_transfer
+  ])
+});
+
+const author_reward = new Serializer('author_reward', {
   author: string,
   permlink: string,
   sbd_payout: asset,
@@ -324,45 +342,49 @@ let author_reward = new Serializer('author_reward', {
   vesting_payout: asset
 });
 
-let curation_reward = new Serializer('curation_reward', {
+const curation_reward = new Serializer('curation_reward', {
   curator: string,
   reward: asset,
   comment_author: string,
   comment_permlink: string
 });
 
-let comment_reward = new Serializer('comment_reward', {
+const comment_reward = new Serializer('comment_reward', {
   author: string,
   permlink: string,
   payout: asset
 });
 
-let fill_scorumpower_withdraw = new Serializer('fill_scorumpower_withdraw', {
+const fill_scorumpower_withdraw = new Serializer('fill_scorumpower_withdraw', {
   from_account: string,
   to_account: string,
   withdrawn: asset,
   deposited: asset
 });
 
-let shutdown_witness = new Serializer('shutdown_witness', { owner: string });
+const shutdown_witness = new Serializer('shutdown_witness', { owner: string });
 
-let hardfork = new Serializer('hardfork', { hardfork_id: uint32 });
+const hardfork = new Serializer('hardfork', { hardfork_id: uint32 });
 
-let comment_payout_update = new Serializer('comment_payout_update', {
+const comment_payout_update = new Serializer('comment_payout_update', {
   author: string,
   permlink: string
 });
 
-let return_scorumpower_delegation = new Serializer('return_scorumpower_delegation', {
+const return_scorumpower_delegation = new Serializer('return_scorumpower_delegation', {
   account: string,
   scorumpower: asset
 });
 
-let comment_benefactor_reward = new Serializer('comment_benefactor_reward', {
+const comment_benefactor_reward = new Serializer('comment_benefactor_reward', {
   benefactor: string,
   author: string,
   permlink: string,
   reward: asset
+});
+
+const dummy = new Serializer('dummy', {
+  something: string
 });
 
 operation.st_operations = [
@@ -394,11 +416,11 @@ operation.st_operations = [
   delegate_scorumpower,
   create_budget,
   close_budget,
-  null, // proposal_vote_operation,
-  null, // proposal_create_operation,
-  null, // atomicswap_initiate_operation,
-  null, // atomicswap_redeem_operation,
-  null, // atomicswap_refund_operation,
+  proposal_vote,
+  proposal_create,
+  dummy, // atomicswap_initiate_operation,
+  dummy, // atomicswap_redeem_operation,
+  dummy, // atomicswap_refund_operation,
   author_reward,
   comment_benefactor_reward,
   comment_payout_update,
@@ -406,12 +428,12 @@ operation.st_operations = [
   curation_reward,
   fill_scorumpower_withdraw,
   hardfork,
-  null, // producer_reward_operation,
+  dummy, // producer_reward_operation,
   return_scorumpower_delegation,
   shutdown_witness
 ];
 
-let transaction = new Serializer('transaction', {
+const transaction = new Serializer('transaction', {
   ref_block_num: uint16,
   ref_block_prefix: uint32,
   expiration: time_point_sec,

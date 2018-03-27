@@ -62,8 +62,20 @@ ChainTypes.operations = {
   hardfork: 39,
   producer_reward: 40,
   return_scorumpower_delegation: 41,
-  shutdown_witness: 42
+  shutdown_witness: 42,
+
+  // proposal operations
+  registration_committee_add_member: 0,
+  registration_committee_exclude_member: 1,
+  registration_committee_change_quorum: 2,
+  development_committee_add_member: 3,
+  development_committee_exclude_member: 4,
+  development_committee_change_quorum: 5,
+  development_committee_withdraw_vesting: 6,
+  development_committee_transfer: 7
 };
+
+ChainTypes.proposal_operations = {};
 
 //types.hpp
 ChainTypes.object_type = {
