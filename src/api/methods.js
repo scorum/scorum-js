@@ -305,6 +305,11 @@ export default [
     params: ['account', 'from', 'limit']
   },
   {
+    api: 'database_api',
+    method: 'get_blocks_history',
+    params: ['from', 'limit']
+  },
+  {
     api: 'login_api',
     method: 'login',
     params: ['username', 'password']
@@ -342,5 +347,10 @@ export default [
     api: 'network_broadcast_api',
     method: 'set_max_block_age',
     params: ['maxBlockAge']
+  },
+  {
+    api: 'blockchain_history_api',
+    method: 'get_ops_history',
+    params: ['from', 'limit', 'opt']
   }
 ];
