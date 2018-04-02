@@ -38,7 +38,8 @@ class PrivateKey {
     if (!(typeof seed === 'string')) {
       throw new Error('seed must be of type string');
     }
-    return PrivateKey.fromBuffer(hash.sha256(seed));
+
+    return PrivateKey.fromBuffer(hash.sha256(hash.sha512(`${seed} 0`)));
   }
 
   static isWif(text) {
