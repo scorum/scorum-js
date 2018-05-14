@@ -187,7 +187,7 @@ scorum.api.getChainProperties(function(err, result) {
 
 ## Account By Key API
 
-### Get Chain Properties
+### Get Key References
 
 ```
 scorum.api.getKeyReferences(key, function(err, result) {
