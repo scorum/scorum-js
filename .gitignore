@@ -11,6 +11,8 @@ build/Release
 node_modules
 .tern-port
 
+.DS_Store
+
 dist/scorum-tests.min.js*
 # node-dist
 .tern-port
