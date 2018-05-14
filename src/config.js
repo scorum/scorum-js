@@ -1,4 +1,5 @@
 import each from 'lodash/each';
+
 const defaultConfig = require('../config.json');
 
 class Config {

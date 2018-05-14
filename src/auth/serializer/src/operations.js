@@ -334,59 +334,6 @@ const proposal_create = new Serializer('proposal_create', {
   ])
 });
 
-const author_reward = new Serializer('author_reward', {
-  author: string,
-  permlink: string,
-  sbd_payout: asset,
-  steem_payout: asset,
-  vesting_payout: asset
-});
-
-const curation_reward = new Serializer('curation_reward', {
-  curator: string,
-  reward: asset,
-  comment_author: string,
-  comment_permlink: string
-});
-
-const comment_reward = new Serializer('comment_reward', {
-  author: string,
-  permlink: string,
-  payout: asset
-});
-
-const fill_scorumpower_withdraw = new Serializer('fill_scorumpower_withdraw', {
-  from_account: string,
-  to_account: string,
-  withdrawn: asset,
-  deposited: asset
-});
-
-const shutdown_witness = new Serializer('shutdown_witness', { owner: string });
-
-const hardfork = new Serializer('hardfork', { hardfork_id: uint32 });
-
-const comment_payout_update = new Serializer('comment_payout_update', {
-  author: string,
-  permlink: string
-});
-
-const return_scorumpower_delegation = new Serializer('return_scorumpower_delegation', {
-  account: string,
-  scorumpower: asset
-});
-
-const comment_benefactor_reward = new Serializer('comment_benefactor_reward', {
-  benefactor: string,
-  author: string,
-  permlink: string,
-  reward: asset
-});
-
-const dummy = new Serializer('dummy', {
-  something: string
-});
-
 operation.st_operations = [
   vote,
   comment,
@@ -417,20 +364,7 @@ operation.st_operations = [
   create_budget,
   close_budget,
   proposal_vote,
-  proposal_create,
-  dummy, // atomicswap_initiate_operation,
-  dummy, // atomicswap_redeem_operation,
-  dummy, // atomicswap_refund_operation,
-  author_reward,
-  comment_benefactor_reward,
-  comment_payout_update,
-  comment_reward,
-  curation_reward,
-  fill_scorumpower_withdraw,
-  hardfork,
-  dummy, // producer_reward_operation,
-  return_scorumpower_delegation,
-  shutdown_witness
+  proposal_create
 ];
 
 const transaction = new Serializer('transaction', {

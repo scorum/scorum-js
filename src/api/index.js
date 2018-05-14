@@ -1,5 +1,6 @@
 import EventEmitter from 'events';
 import Promise from 'bluebird';
+import { sign as signRequest } from '@steemit/rpc-auth';
 import config from '../config';
 import methods from './methods';
 import transports from './transports';
@@ -7,8 +8,8 @@ import { camelCase } from '../utils';
 import { hash } from '../auth/ecc';
 import { ops } from '../auth/serializer';
 import { jsonRpc } from './transports/http';
-import { sign as signRequest } from '@steemit/rpc-auth';
 
+/* eslint-disable */
 class Scorum extends EventEmitter {
   constructor(options = {}) {
     super(options);
@@ -20,8 +21,8 @@ class Scorum extends EventEmitter {
       const methodName = method.method_name || camelCase(method.method);
       const methodParams = method.params || [];
 
-      this[`${methodName}With`] = (options, callback) => {
-        return this.send(
+      this[`${methodName}With`] = (options, callback) =>
+        this.send(
           method.api,
           {
             method: method.method,
@@ -29,7 +30,6 @@ class Scorum extends EventEmitter {
           },
           callback
         );
-      };
 
       this[methodName] = (...args) => {
         const options = methodParams.reduce((memo, param, i) => {
@@ -105,7 +105,7 @@ class Scorum extends EventEmitter {
   log(logLevel) {
     if (this.__logger) {
       if (arguments.length > 1 && typeof this.__logger[logLevel] === 'function') {
-        let args = Array.prototype.slice.call(arguments, 1);
+        const args = Array.prototype.slice.call(arguments, 1);
         this.__logger[logLevel].apply(this.__logger, args);
       } else {
         this.__logger.log.apply(this.__logger, arguments);
@@ -122,16 +122,16 @@ class Scorum extends EventEmitter {
   }
 
   send(api, data, callback) {
-    var cb = callback;
+    let cb = callback;
     if (this.__logger) {
-      let id = Math.random();
-      let self = this;
-      this.log('xmit:' + id + ':', data);
+      const id = Math.random();
+      const self = this;
+      this.log(`xmit:${id}:`, data);
       cb = function(e, d) {
         if (e) {
-          self.log('error', 'rsp:' + id + ':\n\n', e, d);
+          self.log('error', `rsp:${id}:\n\n`, e, d);
         } else {
-          self.log('rsp:' + id + ':', d);
+          self.log(`rsp:${id}:`, d);
         }
         if (callback) {
           callback.apply(self, arguments);
@@ -346,3 +346,4 @@ class Scorum extends EventEmitter {
 const scorum = new Scorum(config);
 exports = module.exports = scorum;
 exports.Scorum = Scorum;
+/* eslint-enable */

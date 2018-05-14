@@ -1,13 +1,15 @@
 {
   "name": "@scorum/scorum-js",
-  "version": "1.4.1",
+  "version": "2.0.0",
   "description": "Scorum.js the JavaScript API for Scorum blockchain",
   "main": "lib/index.js",
   "scripts": {
     "test": "eslint --quiet src test; mocha -t 40000 --require babel-polyfill --require babel-register",
     "test-auth": "npm test -- --grep 'scorum.auth'",
+    "lint": "eslint --ignore-path ./.eslintignore -c ./.eslintrc .",
     "build": "npm run build-browser && npm run build-node",
-    "build-browser": "rm -rf dist && NODE_ENV=production node ./node_modules/webpack/bin/webpack.js && gzip -k -f ./dist/*.js && du -h ./dist/*",
+    "build-browser":
+      "rm -rf dist && NODE_ENV=production node ./node_modules/webpack/bin/webpack.js && gzip -k -f ./dist/*.js && du -h ./dist/*",
     "build-node": "mkdir -p ./lib && cp -r ./src/* ./lib/ && babel ./src --out-dir ./lib",
     "prepare": "npm run build"
   },
@@ -19,11 +21,7 @@
     "type": "git",
     "url": "git+https://github.com/scorum/scorum-js.git"
   },
-  "keywords": [
-    "scorum",
-    "blockchain",
-    "scorumjs"
-  ],
+  "keywords": ["scorum", "blockchain", "scorumjs"],
   "author": "Fabien (https://github.com/bonustrack)",
   "contributors": [
     {
@@ -63,14 +61,15 @@
     "babel-preset-es2015": "^6.16.0",
     "babel-preset-es2017": "^6.16.0",
     "babel-register": "^6.14.0",
-    "bluebird": "^3.4.6",
-    "eslint": "^3.5.0",
-    "eslint-plugin-import": "^1.15.0",
-    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint": "^4.5.0",
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-prettier": "^2.2.0",
     "eslint-plugin-react": "^6.2.1",
     "json-loader": "^0.5.4",
     "mocha": "^3.0.2",
     "mocha-make-stub": "^2.3.2",
+    "prettier": "^1.5.3",
     "should": "^11.1.0",
     "webpack": "^1.13.2",
     "webpack-visualizer-plugin": "^0.1.5"

@@ -218,29 +218,5 @@ module.exports = [
     roles: ['active', 'owner'],
     operation: 'development_committee_transfer',
     params: ['amount', 'to_account']
-  },
-  {
-    roles: ['posting', 'active', 'owner'],
-    operation: 'comment_reward',
-    params: ['author', 'permlink', 'payout']
-  },
-  {
-    roles: ['active', 'owner'],
-    operation: 'fill_scorumpower_withdraw',
-    params: ['from_account', 'to_account', 'withdrawn', 'deposited']
   }
-  /**
-   * @TODO: Add support virtual operations:
-   * atomicswap_initiate_operation
-   * atomicswap_redeem_operation
-   * atomicswap_refund_operation
-   * author_reward
-   * comment_benefactor_reward
-   * comment_payout_update
-   * curation_reward
-   * hardfork
-   * producer_reward
-   * return_scorumpower_delegation
-   * shutdown_witness
-   */
 ];

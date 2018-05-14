@@ -1,10 +1,10 @@
 {
   "transport": "http",
-  "websocket": "ws://node1-testnet.scorum.com:8090",
+  "websocket": "",
   "uri": "",
-  "url": "",
+  "url": "https://testnet.scorum.com",
   "dev_uri": "",
   "stage_uri": "",
   "address_prefix": "SCR",
-  "chain_id": "c035009cd79ca5f655d6286b3b2e50cce46aa69bb68af18dd5edee583487833d"
+  "chain_id": "d3c1f19a4947c296446583f988c43fd1a83818fabaf3454a0020198cb361ebd2"
 }

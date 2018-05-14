@@ -1,4 +1,4 @@
-const steem = require('../lib');
+const scorum = require('../lib');
 
-const resultP = steem.api.getContentAsync('yamadapc', 'test-1-2-3-4-5-6-7-9');
+const resultP = scorum.api.getContentAsync('andrew', 'test-permlink');
 resultP.then(result => console.log(result));

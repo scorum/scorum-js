@@ -1,4 +1,4 @@
-'use strict';
+
 const Visualizer = require('webpack-visualizer-plugin');
 const _ = require('lodash');
 const path = require('path');
@@ -42,12 +42,7 @@ function makeStyleLoaders(options) {
     return [
       {
         test: /\.s[ac]ss$/,
-        loaders: [
-          'style',
-          'css?sourceMap',
-          'autoprefixer-loader?browsers=last 2 version',
-          'sass?sourceMap&sourceMapContents'
-        ]
+        loaders: ['style', 'css?sourceMap', 'autoprefixer-loader?browsers=last 2 version', 'sass?sourceMap&sourceMapContents']
       }
     ];
   }

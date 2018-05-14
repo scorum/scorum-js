@@ -1,98 +1,33 @@
 export default [
   {
-    api: 'database_api',
-    method: 'set_block_applied_callback',
-    params: ['cb']
-  },
-  {
-    api: 'database_api',
-    method: 'get_trending_tags',
-    params: ['afterTag', 'limit']
-  },
-  {
-    api: 'database_api',
-    method: 'get_tags_used_by_author',
-    params: ['author']
-  },
-  {
-    api: 'database_api',
-    method: 'get_post_discussions_by_payout',
-    params: ['query']
-  },
-  {
-    api: 'database_api',
-    method: 'get_comment_discussions_by_payout',
-    params: ['query']
-  },
-  {
-    api: 'database_api',
+    api: 'tags_api',
     method: 'get_discussions_by_trending',
     params: ['query']
   },
   {
-    api: 'database_api',
+    api: 'tags_api',
     method: 'get_discussions_by_created',
     params: ['query']
   },
   {
-    api: 'database_api',
-    method: 'get_discussions_by_active',
-    params: ['query']
-  },
-  {
-    api: 'database_api',
-    method: 'get_discussions_by_cashout',
-    params: ['query']
-  },
-  {
-    api: 'database_api',
-    method: 'get_discussions_by_payout',
-    params: ['query']
-  },
-  {
-    api: 'database_api',
-    method: 'get_discussions_by_votes',
-    params: ['query']
-  },
-  {
-    api: 'database_api',
-    method: 'get_discussions_by_children',
-    params: ['query']
-  },
-  {
-    api: 'database_api',
+    api: 'tags_api',
     method: 'get_discussions_by_hot',
     params: ['query']
   },
   {
-    api: 'database_api',
-    method: 'get_discussions_by_comments',
-    params: ['query']
-  },
-  {
-    api: 'database_api',
-    method: 'get_discussions_by_promoted',
-    params: ['query']
-  },
-  {
-    api: 'database_api',
+    api: 'blockchain_history_api',
     method: 'get_block_header',
     params: ['blockNum']
   },
   {
     api: 'database_api',
-    method: 'get_block',
+    method: 'blockchain_history_api',
     params: ['blockNum']
   },
   {
-    api: 'database_api',
+    api: 'blockchain_history_api',
     method: 'get_ops_in_block',
     params: ['blockNum', 'onlyVirtual']
-  },
-  {
-    api: 'database_api',
-    method: 'get_state',
-    params: ['path']
   },
   {
     api: 'database_api',
@@ -103,23 +38,11 @@ export default [
     method: 'get_dynamic_global_properties'
   },
   {
-    api: 'database_api',
+    api: 'chain_api',
     method: 'get_chain_properties'
   },
   {
     api: 'database_api',
-    method: 'get_witness_schedule'
-  },
-  {
-    api: 'database_api',
-    method: 'get_hardfork_version'
-  },
-  {
-    api: 'database_api',
-    method: 'get_next_scheduled_hardfork'
-  },
-  {
-    api: 'account_by_key_api',
     method: 'get_key_references',
     params: ['key']
   },
@@ -127,25 +50,6 @@ export default [
     api: 'database_api',
     method: 'get_accounts',
     params: ['names']
-  },
-  {
-    api: 'database_api',
-    method: 'get_account_references',
-    params: ['accountId']
-  },
-  {
-    api: 'database_api',
-    method: 'lookup_account_names',
-    params: ['accountNames']
-  },
-  {
-    api: 'database_api',
-    method: 'lookup_accounts',
-    params: ['lowerBoundName', 'limit']
-  },
-  {
-    api: 'database_api',
-    method: 'get_account_count'
   },
   {
     api: 'account_history_api',
@@ -163,109 +67,44 @@ export default [
     params: ['account', 'from', 'limit']
   },
   {
-    api: 'account_stats_api',
+    api: 'account_statistics_api',
     method: 'get_stats_for_time_by_account_name',
     params: ['account', 'timeOpen']
   },
   {
-    api: 'account_stats_api',
+    api: 'account_statistics_api',
     method: 'get_stats_for_interval_by_account_name',
     params: ['account', 'timeStart', 'timeFinish']
   },
   {
-    api: 'account_stats_api',
+    api: 'account_statistics_api',
     method: 'get_lifetime_stats_by_account_name',
     params: ['account']
   },
   {
-    api: 'database_api',
-    method: 'get_owner_history',
-    params: ['account']
-  },
-  {
-    api: 'database_api',
-    method: 'get_recovery_request',
-    params: ['account']
-  },
-  {
-    api: 'database_api',
-    method: 'get_escrow',
-    params: ['from', 'escrowId']
-  },
-  {
-    api: 'database_api',
-    method: 'get_withdraw_routes',
-    params: ['account', 'withdrawRouteType']
-  },
-  {
-    api: 'database_api',
-    method: 'get_account_bandwidth',
-    params: ['account', 'bandwidthType']
-  },
-  {
-    api: 'database_api',
-    method: 'get_transaction_hex',
-    params: ['trx']
-  },
-  {
-    api: 'database_api',
+    api: 'blockchain_history_api',
     method: 'get_transaction',
     params: ['trxId']
   },
   {
-    api: 'database_api',
-    method: 'get_required_signatures',
-    params: ['trx', 'availableKeys']
+    api: 'tags_api',
+    method: 'get_comments',
+    params: ['author', 'permlink', 'depth']
   },
   {
-    api: 'database_api',
-    method: 'get_potential_signatures',
-    params: ['trx']
+    api: 'tags_api',
+    method: 'get_tags_by_category',
+    params: ['category']
   },
   {
-    api: 'database_api',
-    method: 'verify_authority',
-    params: ['trx']
-  },
-  {
-    api: 'database_api',
-    method: 'verify_account_authority',
-    params: ['nameOrId', 'signers']
-  },
-  {
-    api: 'database_api',
-    method: 'get_active_votes',
-    params: ['author', 'permlink']
-  },
-  {
-    api: 'database_api',
-    method: 'get_account_votes',
-    params: ['voter']
-  },
-  {
-    api: 'database_api',
+    api: 'tags_api',
     method: 'get_content',
     params: ['author', 'permlink']
   },
   {
-    api: 'database_api',
-    method: 'get_content_replies',
-    params: ['author', 'permlink']
-  },
-  {
-    api: 'database_api',
-    method: 'get_discussions_by_author_before_date',
+    api: 'tags_api',
+    method: 'get_discussions_by_author',
     params: ['author', 'startPermlink', 'beforeDate', 'limit']
-  },
-  {
-    api: 'database_api',
-    method: 'get_replies_by_last_update',
-    params: ['startAuthor', 'startPermlink', 'limit']
-  },
-  {
-    api: 'database_api',
-    method: 'get_witnesses',
-    params: ['witnessIds']
   },
   {
     api: 'database_api',
@@ -279,15 +118,6 @@ export default [
   },
   {
     api: 'database_api',
-    method: 'lookup_witness_accounts',
-    params: ['lowerBoundName', 'limit']
-  },
-  {
-    api: 'database_api',
-    method: 'get_witness_count'
-  },
-  {
-    api: 'database_api',
     method: 'get_active_witnesses'
   },
   {
@@ -295,33 +125,14 @@ export default [
     method: 'lookup_proposals'
   },
   {
-    api: 'database_api',
-    method: 'get_reward_fund',
-    params: ['name']
+    api: 'blockchain_history_api',
+    method: 'get_block',
+    params: ['blockNum']
   },
   {
-    api: 'database_api',
-    method: 'get_scorumpower_delegations',
-    params: ['account', 'from', 'limit']
-  },
-  {
-    api: 'database_api',
+    api: 'blockchain_history_api',
     method: 'get_blocks_history',
     params: ['from', 'limit']
-  },
-  {
-    api: 'login_api',
-    method: 'login',
-    params: ['username', 'password']
-  },
-  {
-    api: 'login_api',
-    method: 'get_api_by_name',
-    params: ['database_api']
-  },
-  {
-    api: 'login_api',
-    method: 'get_version'
   },
   {
     api: 'network_broadcast_api',
@@ -337,16 +148,6 @@ export default [
     api: 'network_broadcast_api',
     method: 'broadcast_transaction_synchronous',
     params: ['trx']
-  },
-  {
-    api: 'network_broadcast_api',
-    method: 'broadcast_block',
-    params: ['b']
-  },
-  {
-    api: 'network_broadcast_api',
-    method: 'set_max_block_age',
-    params: ['maxBlockAge']
   },
   {
     api: 'blockchain_history_api',

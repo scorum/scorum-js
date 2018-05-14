@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb"],
+  "extends": ["airbnb-base"],
   "plugins": ["prettier"],
   "env": {
     "es6": true,
@@ -10,23 +10,12 @@
   },
   "rules": {
     "no-debugger": 1,
-    "comma-dangle": ["error", "always-multiline"],
-    "max-len": [
-      "error",
-      120,
-      2,
-      {
-        "ignoreUrls": true,
-        "ignoreComments": false,
-        "ignoreRegExpLiterals": true,
-        "ignoreStrings": true,
-        "ignoreTemplateLiterals": true
-      }
-    ],
-    "no-mixed-operators": 0,
+    "comma-dangle": ["error", { "functions": "never" }],
+    "no-await-in-loop": 0,
     "no-confusing-arrow": 0,
-    "import/no-extraneous-dependencies": 0,
-    "react/sort-comp": 0,
-    "no-array-constructor": 0
+    "no-mixed-operators": 0,
+    "no-underscore-dangle": 1,
+    "class-methods-use-this": 0,
+    "max-len": ["error", 140, 2, { "ignoreStrings": true }]
   }
 }

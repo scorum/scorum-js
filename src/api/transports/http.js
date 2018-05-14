@@ -24,13 +24,13 @@ export function jsonRpc(uri, { method, id, params }) {
       'Content-Type': 'application/json'
     }
   })
-    .then(res => {
+    .then((res) => {
       if (!res.ok) {
         throw new Error(`HTTP ${res.status}: ${res.statusText}`);
       }
       return res.json();
     })
-    .then(rpcRes => {
+    .then((rpcRes) => {
       if (rpcRes.id !== id) {
         throw new Error(`Invalid response id: ${rpcRes.id}`);
       }
@@ -43,17 +43,16 @@ export function jsonRpc(uri, { method, id, params }) {
 
 export default class HttpTransport extends Transport {
   send(api, data, callback) {
-    if (this.options.useAppbaseApi) {
-      api = 'condenser_api';
-    }
+    const _api = this.options.useAppbaseApi ? 'condenser_api' : api;
     debug('Scorum::send', api, data);
+    /* eslint-disable-next-line */
     const id = data.id || this.id++;
-    const params = [api, data.method, data.params];
+    const params = [_api, data.method, data.params];
     jsonRpc(this.options.uri, { method: 'call', id, params }).then(
-      res => {
+      (res) => {
         callback(null, res);
       },
-      err => {
+      (err) => {
         callback(err);
       }
     );

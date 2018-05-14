@@ -1,3 +1,4 @@
+/* eslint-disable */
 import get from 'lodash/get';
 import { key_utils } from './auth/ecc';
 
@@ -100,11 +101,9 @@ module.exports = scorumAPI => {
         conversionValue += amount;
       }, []);
 
-      const total_sbd =
-        sbd_balance + sbd_balance_savings + savings.savings_sbd_pending + orders.sbdOrders + conversionValue;
+      const total_sbd = sbd_balance + sbd_balance_savings + savings.savings_sbd_pending + orders.sbdOrders + conversionValue;
 
-      const total_scorum =
-        scorum_power + balance_scorum + saving_balance_scorum + savings.savings_pending + orders.scorumpowerOrders;
+      const total_scorum = scorum_power + balance_scorum + saving_balance_scorum + savings.savings_pending + orders.scorumpowerOrders;
 
       return (total_scorum * price_per_scorum + total_sbd).toFixed(2);
     });
@@ -158,3 +157,4 @@ module.exports = scorumAPI => {
     createSuggestedPassword
   };
 };
+/* eslint-enable */

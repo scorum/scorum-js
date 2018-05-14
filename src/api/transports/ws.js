@@ -15,6 +15,7 @@ if (isNode) {
 
 const debug = newDebug('scorum:ws');
 
+/* eslint-disable */
 export default class WsTransport extends Transport {
   constructor(options = {}) {
     super(Object.assign({ id: 0 }, options));
@@ -97,7 +98,7 @@ export default class WsTransport extends Transport {
   }
 
   onError(error) {
-    for (let _request of this._requests) {
+    for (const _request of this._requests) {
       _request.deferral.reject(error);
     }
     this.stop();
@@ -105,7 +106,7 @@ export default class WsTransport extends Transport {
 
   onClose() {
     const error = new Error('Connection was closed');
-    for (let _request of this._requests) {
+    for (const _request of this._requests) {
       _request.deferral.reject(error);
     }
     this._requests.clear();
@@ -134,3 +135,4 @@ export default class WsTransport extends Transport {
     }
   }
 }
+/* eslint-enable */

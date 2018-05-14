@@ -22,4 +22,5 @@ if (typeof global !== 'undefined') {
   global.scorum = scorum;
 }
 
-exports = module.exports = scorum;
+exports = scorum;
+module.exports = scorum;

@@ -49,21 +49,6 @@ ChainTypes.operations = {
   proposal_vote: 28,
   proposal_create: 29,
 
-  // virtual operations
-  atomicswap_initiate_operation: 30,
-  atomicswap_redeem_operation: 31,
-  atomicswap_refund_operation: 32,
-  author_reward: 33,
-  comment_benefactor_reward: 34,
-  comment_payout_update: 35,
-  comment_reward: 36,
-  curation_reward: 37,
-  fill_scorumpower_withdraw: 38,
-  hardfork: 39,
-  producer_reward: 40,
-  return_scorumpower_delegation: 41,
-  shutdown_witness: 42,
-
   // proposal operations
   registration_committee_add_member: 0,
   registration_committee_exclude_member: 1,
