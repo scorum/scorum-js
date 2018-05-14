@@ -2,8 +2,8 @@ import types from './types';
 import SerializerImpl from './serializer';
 
 const {
-  //id_type,
-  //varint32, uint8, int64, fixed_array, object_id_type, vote_id, address,
+  // id_type,
+  // varint32, uint8, int64, fixed_array, object_id_type, vote_id, address,
   uint16,
   uint32,
   int16,
@@ -31,7 +31,7 @@ const operation = static_variant();
 module.exports.operation = operation;
 
 // For module.exports
-const Serializer = function(operation_name, serilization_types_object) {
+const Serializer = function (operation_name, serilization_types_object) {
   const s = new SerializerImpl(operation_name, serilization_types_object);
   return (module.exports[operation_name] = s);
 };
