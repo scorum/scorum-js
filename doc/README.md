@@ -205,6 +205,14 @@ scorum.api.getAccounts(names, function(err, result) {
 });
 ```
 
+### Get Accounts
+
+```
+scorum.api.getAccountCount(function(err, result) {
+  console.log(err, result);
+});
+```
+
 ### Lookup Proposals
 
 ```

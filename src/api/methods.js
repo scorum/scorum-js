@@ -89,6 +89,10 @@ export default [
   },
   {
     api: 'database_api',
+    method: 'get_account_count'
+  },
+  {
+    api: 'database_api',
     method: 'lookup_proposals'
   },
   {
