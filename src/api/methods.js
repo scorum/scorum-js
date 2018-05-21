@@ -18,7 +18,7 @@ export default [
   {
     api: 'tags_api',
     method: 'get_discussions_by_author',
-    params: ['author', 'startPermlink', 'limit']
+    params: ['query']
   },
   {
     api: 'tags_api',
