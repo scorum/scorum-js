@@ -28,7 +28,7 @@ export default [
   {
     api: 'tags_api',
     method: 'get_tags_by_category',
-    params: ['category']
+    params: ['domain', 'category']
   },
   {
     api: 'tags_api',
