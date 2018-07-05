@@ -287,6 +287,14 @@ scorum.api.getAccountScrToSpTransfers(account, from, limit, function(err, result
 });
 ```
 
+### Get Account SP To SCR Transfers
+
+```
+scorum.api.getAccountSpToScrTransfers(account, from, limit, function(err, result) {
+  console.log(err, result);
+});
+```
+
 ## Account Statistics API
 
 ### Get Stats For Time By Account Name

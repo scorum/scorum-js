@@ -134,6 +134,11 @@ export default [
     method: 'get_account_scr_to_sp_transfers',
     params: ['account', 'from', 'limit']
   },
+  {
+    api: 'account_history_api',
+    method: 'get_account_sp_to_scr_transfers',
+    params: ['account', 'from', 'limit']
+  },
 
   // account_statistics_api
   {
