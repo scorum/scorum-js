@@ -157,6 +157,18 @@ export default [
     params: ['account']
   },
 
+  // blockchain_statistics_api
+  {
+    api: 'blockchain_statistics_api',
+    method: 'get_stats_for_time',
+    params: ['open', 'interval']
+  },
+  {
+    api: 'blockchain_statistics_api',
+    method: 'get_stats_for_interval',
+    params: ['start', 'end']
+  },
+
   // network_broadcast_api
   {
     api: 'network_broadcast_api',
