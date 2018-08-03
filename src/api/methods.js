@@ -73,6 +73,10 @@ export default [
     api: 'chain_api',
     method: 'get_chain_properties'
   },
+  {
+    api: 'chain_api',
+    method: 'get_chain_capital'
+  },
 
   // account_by_key_api
   {
@@ -116,6 +120,31 @@ export default [
   {
     api: 'database_api',
     method: 'get_dynamic_global_properties'
+  },
+  {
+    api: 'database_api',
+    method: 'get_scorumpower_delegations',
+    params: ['account', 'from', 'limit']
+  },
+  {
+    api: 'database_api',
+    method: 'get_expiring_scorumpower_delegations',
+    params: ['account', 'from', 'limit']
+  },
+  {
+    api: 'database_api',
+    method: 'lookup_accounts',
+    params: ['account', 'limit']
+  },
+  {
+    api: 'database_api',
+    method: 'get_owner_history',
+    params: ['account']
+  },
+  {
+    api: 'database_api',
+    method: 'get_withdraw_routes',
+    params: ['account', 'type']
   },
 
   // account_history_api
