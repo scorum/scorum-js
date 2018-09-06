@@ -35,6 +35,21 @@ export default [
     method: 'get_content',
     params: ['author', 'permlink']
   },
+  {
+    api: 'tags_api',
+    method: 'get_contents',
+    params: ['queries']
+  },
+  {
+    api: 'tags_api',
+    method: 'get_parents',
+    params: ['query']
+  },
+  {
+    api: 'tags_api',
+    method: 'get_posts_comments_by_author',
+    params: ['query']
+  },
 
   // blockchain_history_api
   {
