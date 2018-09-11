@@ -2,9 +2,10 @@ const scorum = require('../../lib');
 
 (async () => {
   try {
-    const response = await scorum.api.getPostsCommentsByAuthorWithAsync({
+    const response = await scorum.api.getPaidPostsCommentsByAuthorWithAsync({
       query: {
         start_author: 'gina',
+        start_permlink: '',
         limit: 10
       }
     });

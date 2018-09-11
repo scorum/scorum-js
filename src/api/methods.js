@@ -47,7 +47,7 @@ export default [
   },
   {
     api: 'tags_api',
-    method: 'get_posts_comments_by_author',
+    method: 'get_paid_posts_comments_by_author',
     params: ['query']
   },
 
