@@ -1,6 +1,6 @@
 {
   "name": "@scorum/scorum-js",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "description": "Scorum.js the JavaScript API for Scorum blockchain",
   "main": "lib/index.js",
   "scripts": {
