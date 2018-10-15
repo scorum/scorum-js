@@ -552,7 +552,7 @@ scorum.broadcast.declineVotingRights(wif, account, decline, function(err, result
 ### Delegate Scorum Power
 
 ```
-scorum.broadcast.delegateScorumPower(wif, delegator, delegatee, scorumpower, function(err, result) {
+scorum.broadcast.delegateScorumpower(wif, delegator, delegatee, scorumpower, function(err, result) {
   console.log(err, result);
 });
 ```
