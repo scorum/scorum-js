@@ -1,14 +1,15 @@
-var BigInteger = require('bigi');
-var ecurve = require('ecurve');
-var secp256k1 = ecurve.getCurveByName('secp256k1');
-BigInteger = require('bigi');
-var base58 = require('bs58');
-var hash = require('./hash');
-var config = require('../../../config');
-var assert = require('assert');
+let BigInteger = require('bigi');
+const ecurve = require('ecurve');
 
-var G = secp256k1.G;
-var n = secp256k1.n;
+const secp256k1 = ecurve.getCurveByName('secp256k1');
+BigInteger = require('bigi');
+const base58 = require('bs58');
+const hash = require('./hash');
+const config = require('../../../config');
+const assert = require('assert');
+
+const G = secp256k1.G;
+const n = secp256k1.n;
 
 class PublicKey {
   /** @param {ecurve.Point} public key */
@@ -33,15 +34,15 @@ class PublicKey {
   }
 
   toUncompressed() {
-    var buf = this.Q.getEncoded(false);
-    var point = ecurve.Point.decodeFrom(secp256k1, buf);
+    const buf = this.Q.getEncoded(false);
+    const point = ecurve.Point.decodeFrom(secp256k1, buf);
     return PublicKey.fromPoint(point);
   }
 
   /** bts::blockchain::address (unique but not a full public key) */
   toBlockchainAddress() {
-    var pub_buf = this.toBuffer();
-    var pub_sha = hash.sha512(pub_buf);
+    const pub_buf = this.toBuffer();
+    const pub_sha = hash.sha512(pub_buf);
     return hash.ripemd160(pub_sha);
   }
 
@@ -83,35 +84,35 @@ class PublicKey {
         @return PublicKey
     */
   static fromStringOrThrow(public_key, address_prefix = config.get('address_prefix')) {
-    var prefix = public_key.slice(0, address_prefix.length);
+    const prefix = public_key.slice(0, address_prefix.length);
     assert.equal(address_prefix, prefix, `Expecting key to begin with ${address_prefix}, instead got ${prefix}`);
     public_key = public_key.slice(address_prefix.length);
 
     public_key = new Buffer(base58.decode(public_key), 'binary');
-    var checksum = public_key.slice(-4);
+    const checksum = public_key.slice(-4);
     public_key = public_key.slice(0, -4);
-    var new_checksum = hash.ripemd160(public_key);
+    let new_checksum = hash.ripemd160(public_key);
     new_checksum = new_checksum.slice(0, 4);
     assert.deepEqual(checksum, new_checksum, 'Checksum did not match');
     return PublicKey.fromBuffer(public_key);
   }
 
   toAddressString(address_prefix = config.get('address_prefix')) {
-    var pub_buf = this.toBuffer();
-    var pub_sha = hash.sha512(pub_buf);
-    var addy = hash.ripemd160(pub_sha);
-    var checksum = hash.ripemd160(addy);
+    const pub_buf = this.toBuffer();
+    const pub_sha = hash.sha512(pub_buf);
+    let addy = hash.ripemd160(pub_sha);
+    const checksum = hash.ripemd160(addy);
     addy = Buffer.concat([addy, checksum.slice(0, 4)]);
     return address_prefix + base58.encode(addy);
   }
 
   toPtsAddy() {
-    var pub_buf = this.toBuffer();
-    var pub_sha = hash.sha256(pub_buf);
-    var addy = hash.ripemd160(pub_sha);
-    addy = Buffer.concat([new Buffer([0x38]), addy]); //version 56(decimal)
+    const pub_buf = this.toBuffer();
+    const pub_sha = hash.sha256(pub_buf);
+    let addy = hash.ripemd160(pub_sha);
+    addy = Buffer.concat([new Buffer([0x38]), addy]); // version 56(decimal)
 
-    var checksum = hash.sha256(addy);
+    let checksum = hash.sha256(addy);
     checksum = hash.sha256(checksum);
 
     addy = Buffer.concat([addy, checksum.slice(0, 4)]);
@@ -125,12 +126,12 @@ class PublicKey {
     offset = Buffer.concat([this.toBuffer(), offset]);
     offset = hash.sha256(offset);
 
-    let c = BigInteger.fromBuffer(offset);
+    const c = BigInteger.fromBuffer(offset);
 
     if (c.compareTo(n) >= 0) throw new Error('Child offset went out of bounds, try again');
 
-    let cG = G.multiply(c);
-    let Qprime = this.Q.add(cG);
+    const cG = G.multiply(c);
+    const Qprime = this.Q.add(cG);
 
     if (secp256k1.isInfinity(Qprime)) throw new Error('Child offset derived to an invalid key, try again');
 

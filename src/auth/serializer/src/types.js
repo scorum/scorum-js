@@ -1,5 +1,5 @@
 // Low-level types that make up operations
-
+const ByteBuffer = require('bytebuffer');
 const v = require('./validation');
 const ObjectId = require('./object_id');
 const fp = require('./fast_parser');
@@ -33,6 +33,7 @@ Types.asset = {
     b.skip(7);
     // "1.000 STEEM" always written with full precision
     let amount_string = fromImpliedDecimal(amount, precision);
+
     return amount_string + ' ' + symbol;
   },
   appendByteBuffer(b, object) {
@@ -213,6 +214,36 @@ Types.uint64 = {
   }
 };
 
+Types.uuid = {
+  fromByteBuffer(b) {
+    const b_copy = b.copy(b.offset, b.offset + 16);
+    b.skip(16)
+    
+    const buf = new Buffer(b_copy.toBinary(), 'binary')
+    
+    return fp.UUIDtoString(buf);
+  },
+  appendByteBuffer(b, object) {
+    v.required(object);
+
+    b.append(fp.UUIDtoBuffer(object));
+    return;
+  },
+  fromObject(object) {
+    return object;
+  },
+  toObject(object, debug = {}) {
+    if (debug.use_default && object === undefined) {
+      return '';
+    }
+
+    // object should be a buffer
+    // console.log('object should be a buffer', object, fp.UUIDtoString(object));
+    return object;
+    // return fp.UUIDtoString(object);
+  }
+};
+
 Types.string = {
   fromByteBuffer(b) {
     return new Buffer(b.readVString(), 'utf8');
@@ -230,6 +261,7 @@ Types.string = {
     if (debug.use_default && object === undefined) {
       return '';
     }
+
     return object.toString('utf8');
   }
 };

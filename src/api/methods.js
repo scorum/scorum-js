@@ -51,6 +51,32 @@ export default [
     params: ['query']
   },
 
+  // advertising_api
+  {
+    api: 'advertising_api',
+    method: 'get_auction_coefficients',
+    params: ['type']
+  },
+  {
+    api: 'advertising_api',
+    method: 'get_budget',
+    params: ['uuid', 'type']
+  },
+  {
+    api: 'advertising_api',
+    method: 'get_current_winners',
+    params: ['type']
+  },
+  {
+    api: 'advertising_api',
+    method: 'get_moderator'
+  },
+  {
+    api: 'advertising_api',
+    method: 'get_user_budgets',
+    params: ['user']
+  },
+
   // blockchain_history_api
   {
     api: 'blockchain_history_api',

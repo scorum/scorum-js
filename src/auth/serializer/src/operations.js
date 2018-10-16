@@ -20,7 +20,8 @@ const {
   public_key,
   time_point_sec,
   optional,
-  asset
+  asset,
+  uuid
 } = types;
 
 const future_extensions = types.void;
@@ -266,15 +267,33 @@ const delegate_scorumpower = new Serializer('delegate_scorumpower', {
   scorumpower: asset
 });
 
+/*
+  type [ENUM]:
+    0 - post
+    1 - banner
+
+  Temporary use uint64 type for budget type
+*/
 const create_budget = new Serializer('create_budget', {
+  type: uint64,
+  uuid,
   owner: string,
-  content_permlink: string,
+  json_metadata: string,
   balance: asset,
+  start: time_point_sec,
   deadline: time_point_sec
 });
 
+const update_budget = new Serializer('update_budget', {
+  type: uint64,
+  uuid,
+  owner: string,
+  json_metadata: string
+});
+
 const close_budget = new Serializer('close_budget', {
-  budget_id: uint64,
+  type: uint64,
+  uuid,
   owner: string
 });
 
@@ -319,6 +338,24 @@ const development_committee_transfer = new Serializer('development_committee_tra
   to_account: string
 });
 
+const development_committee_empower_advertising_moderator = new Serializer('development_committee_empower_advertising_moderator', {
+  account_name: string
+});
+
+const development_committee_change_post_budgets_auction_properties = new Serializer(
+  'development_committee_change_post_budgets_auction_properties',
+  {
+    auction_coefficients: array(uint16)
+  }
+);
+
+const development_committee_change_banner_budgets_auction_properties = new Serializer(
+  'development_committee_change_banner_budgets_auction_properties',
+  {
+    auction_coefficients: array(uint16)
+  }
+);
+
 const proposal_create = new Serializer('proposal_create', {
   creator: string,
   lifetime_sec: uint32,
@@ -330,8 +367,15 @@ const proposal_create = new Serializer('proposal_create', {
     development_committee_exclude_member,
     development_committee_change_quorum,
     development_committee_withdraw_vesting,
-    development_committee_transfer
+    development_committee_transfer,
+    development_committee_empower_advertising_moderator,
+    development_committee_change_post_budgets_auction_properties,
+    development_committee_change_banner_budgets_auction_properties
   ])
+});
+
+const dummy = new Serializer('dummy', {
+  something: string
 });
 
 operation.st_operations = [
@@ -364,7 +408,12 @@ operation.st_operations = [
   create_budget,
   close_budget,
   proposal_vote,
-  proposal_create
+  proposal_create,
+  dummy,
+  dummy,
+  dummy,
+  dummy, // close_budget_by_advertising_moderator,
+  update_budget
 ];
 
 const transaction = new Serializer('transaction', {

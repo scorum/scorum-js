@@ -1,4 +1,4 @@
-var ChainTypes;
+let ChainTypes;
 
 module.exports = ChainTypes = {};
 
@@ -49,6 +49,13 @@ ChainTypes.operations = {
   proposal_vote: 28,
   proposal_create: 29,
 
+  atomicswap_initiate: 30,
+  atomicswap_redeem: 31,
+  atomicswap_refund: 32,
+
+  close_budget_by_advertising_moderator: 33,
+  update_budget: 34,
+
   // proposal operations
   registration_committee_add_member: 0,
   registration_committee_exclude_member: 1,
@@ -57,12 +64,15 @@ ChainTypes.operations = {
   development_committee_exclude_member: 4,
   development_committee_change_quorum: 5,
   development_committee_withdraw_vesting: 6,
-  development_committee_transfer: 7
+  development_committee_transfer: 7,
+  development_committee_empower_advertising_moderator: 8,
+  development_committee_change_post_budgets_auction_properties: 9,
+  development_committee_change_banner_budgets_auction_properties: 10
 };
 
 ChainTypes.proposal_operations = {};
 
-//types.hpp
+// types.hpp
 ChainTypes.object_type = {
   null: 0,
   base: 1

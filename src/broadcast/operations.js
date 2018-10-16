@@ -37,18 +37,7 @@ module.exports = [
   {
     roles: ['active', 'owner'],
     operation: 'account_create_with_delegation',
-    params: [
-      'fee',
-      'delegation',
-      'creator',
-      'new_account_name',
-      'owner',
-      'active',
-      'posting',
-      'memo_key',
-      'json_metadata',
-      'extensions'
-    ]
+    params: ['fee', 'delegation', 'creator', 'new_account_name', 'owner', 'active', 'posting', 'memo_key', 'json_metadata', 'extensions']
   },
   {
     roles: ['active', 'owner'],
@@ -78,15 +67,7 @@ module.exports = [
   {
     roles: ['posting', 'active', 'owner'],
     operation: 'comment_options',
-    params: [
-      'author',
-      'permlink',
-      'max_accepted_payout',
-      'percent_steem_dollars',
-      'allow_votes',
-      'allow_curation_rewards',
-      'extensions'
-    ]
+    params: ['author', 'permlink', 'max_accepted_payout', 'percent_steem_dollars', 'allow_votes', 'allow_curation_rewards', 'extensions']
   },
   {
     roles: ['active', 'owner'],
@@ -162,7 +143,12 @@ module.exports = [
   {
     roles: ['active', 'owner'],
     operation: 'create_budget',
-    params: ['owner', 'content_permlink', 'balance', 'deadline']
+    params: ['type', 'uuid', 'owner', 'json_metadata', 'balance', 'start', 'deadline']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'update_budget',
+    params: ['type', 'uuid', 'owner', 'json_metadata']
   },
   {
     roles: ['active', 'owner'],
@@ -218,5 +204,20 @@ module.exports = [
     roles: ['active', 'owner'],
     operation: 'development_committee_transfer',
     params: ['amount', 'to_account']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'development_committee_empower_advertising_moderator',
+    params: ['account_name']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'development_committee_change_post_budgets_auction_properties',
+    params: ['auction_coefficients']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'development_committee_change_banner_budgets_auction_properties',
+    params: ['auction_coefficients']
   }
 ];
