@@ -1,6 +1,7 @@
 const assert = require('assert');
 const types = require('../src/auth/serializer/src/types');
 const ops = require('../src/auth/serializer/src/operations');
+const auth = require('../src/auth/index');
 
 describe('scorum.auth: operation test', () => {
   it('templates', () => {
@@ -72,6 +73,50 @@ describe('scorum.auth: operation test', () => {
     assert.deepEqual(tx_hex, ops.create_budget.toHex(tx_object1));
     assert.deepEqual(tx_hex, ops.create_budget.toHex(tx_object2));
   });
+
+  it('witness_update', () => {
+    const tx = {
+      owner: 'leonarda',
+      url: 'leonarda.com',
+      block_signing_key: 'SCR7zPNg5nAsJjP9gvMfQ4UnAwDwf91WPYC8KFzobtMuQ52ns1D6T',
+      props: {
+        account_creation_fee: '0.100000000 SCR',
+        maximum_block_size: 131072
+      }
+    };
+
+    const tx_hex =
+      '086c656f6e617264610c6c656f6e617264612e636f6d03987a5a967458c114c15091198c06a822f54b494ea486204551a53f85effa314200e1f50500000000095343520000000000000200';
+    const tx_object1 = ops.witness_update.fromObject(tx);
+    const tx_object2 = ops.witness_update.fromHex(tx_hex);
+
+    assert.deepEqual(tx, ops.witness_update.toObject(tx_object1));
+    assert.deepEqual(tx, ops.witness_update.toObject(tx_object2));
+    assert.deepEqual(tx_hex, ops.witness_update.toHex(tx_object1));
+    assert.deepEqual(tx_hex, ops.witness_update.toHex(tx_object2));
+  });
+
+  // it('proposal_create', () => {
+  //   const tx = {
+  //     ref_block_num: 8474,
+  //     ref_block_prefix: 4231873456,
+  //     expiration: '2018-10-18T07:30:42',
+  //     extensions: [],
+  //     operations: [
+  //       [
+  //         'proposal_create',
+  //         {
+  //           creator: 'dionne',
+  //           lifetime_sec: 86400,
+  //           operation: ['development_committee_change_post_budgets_auction_properties', { auction_coefficients: [60, 40] }]
+  //         }
+  //       ]
+  //     ]
+  //   };
+
+  //   const sign = auth.signTransaction(tx, ['5HyPbZ3h4wEXrFjHqrcMMsZvvDiPzJmTxq5tmLwcvECbFFx7mD9']);
+  //   console.log('sign', JSON.stringify(sign));
+  // });
 });
 
 function template(op) {

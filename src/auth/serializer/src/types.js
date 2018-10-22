@@ -31,7 +31,7 @@ Types.asset = {
     let b_copy = b.copy(b.offset, b.offset + 7);
     let symbol = new Buffer(b_copy.toBinary(), 'binary').toString().replace(/\x00/g, '');
     b.skip(7);
-    // "1.000 STEEM" always written with full precision
+    // "1.000000000 SCR" always written with full precision
     let amount_string = fromImpliedDecimal(amount, precision);
 
     return amount_string + ' ' + symbol;
@@ -39,7 +39,7 @@ Types.asset = {
   appendByteBuffer(b, object) {
     object = object.trim();
     if (!/^[0-9]+\.?[0-9]* [A-Za-z0-9]+$/.test(object))
-      throw new Error("Expecting amount like '99.000 SYMBOL', instead got '" + object + "'");
+      throw new Error("Expecting amount like '99.000000000 SYMBOL', instead got '" + object + "'");
 
     let [amount, symbol] = object.split(' ');
     if (symbol.length > 6) throw new Error('Symbols are not longer than 6 characters ' + symbol + '-' + symbol.length);
@@ -57,7 +57,7 @@ Types.asset = {
   },
   toObject(object, debug = {}) {
     if (debug.use_default && object === undefined) {
-      return '0.000 STEEM';
+      return '0.000000000 SCR';
     }
     return object;
   }
@@ -408,6 +408,52 @@ Types.array = function(st_operation) {
       }
       v.required(object);
       object = sortOperation(object, st_operation);
+
+      var result = [];
+      for (var i = 0, o; i < object.length; i++) {
+        o = object[i];
+        result.push(st_operation.toObject(o, debug));
+      }
+      return result;
+    }
+  };
+};
+
+Types.unsortedArray = function(st_operation) {
+  return {
+    fromByteBuffer(b) {
+      var size = b.readVarint32();
+      if (HEX_DUMP) {
+        console.log('varint32 size = ' + size.toString(16));
+      }
+      var result = [];
+      for (var i = 0; 0 < size ? i < size : i > size; 0 < size ? i++ : i++) {
+        result.push(st_operation.fromByteBuffer(b));
+      }
+      return result;
+    },
+    appendByteBuffer(b, object) {
+      v.required(object);
+      b.writeVarint32(object.length);
+      for (var i = 0, o; i < object.length; i++) {
+        o = object[i];
+        st_operation.appendByteBuffer(b, o);
+      }
+    },
+    fromObject(object) {
+      v.required(object);
+      var result = [];
+      for (var i = 0, o; i < object.length; i++) {
+        o = object[i];
+        result.push(st_operation.fromObject(o));
+      }
+      return result;
+    },
+    toObject(object, debug = {}) {
+      if (debug.use_default && object === undefined) {
+        return [st_operation.toObject(object, debug)];
+      }
+      v.required(object);
 
       var result = [];
       for (var i = 0, o; i < object.length; i++) {
@@ -967,7 +1013,6 @@ Types.address = {
 let strCmp = (a, b) => (a > b ? 1 : a < b ? -1 : 0);
 let firstEl = el => (Array.isArray(el) ? el[0] : el);
 let sortOperation = (array, st_operation) => {
-  // console.log('operation.nosort', st_operation.nosort)
   return st_operation.nosort
     ? array
     : st_operation.compare

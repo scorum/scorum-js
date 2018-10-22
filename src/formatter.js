@@ -135,8 +135,8 @@ module.exports = scorumAPI => {
       return out;
     },
 
-    scorumPowerToScr: function(scorumPower, totalsSorumPower, totalVestingFundSteem) {
-      return parseFloat(totalVestingFundSteem) * (parseFloat(scorumPower) / parseFloat(totalScorumPower));
+    scorumPowerToScr: function(scorumPower, totalsSorumPower, totalVestingFund) {
+      return parseFloat(totalVestingFund) * (parseFloat(scorumPower) / parseFloat(totalScorumPower));
     },
 
     commentPermlink: function(parentAuthor, parentPermlink) {

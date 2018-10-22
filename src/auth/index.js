@@ -1,6 +1,7 @@
 let bigi = require('bigi'),
   bs58 = require('bs58'),
   ecurve = require('ecurve'),
+  newDebug = require('debug'),
   Point = ecurve.Point,
   secp256k1 = ecurve.getCurveByName('secp256k1'),
   config = require('../config'),
@@ -13,6 +14,8 @@ let bigi = require('bigi'),
 const Auth = {};
 const transaction = operations.transaction;
 const signed_transaction = operations.signed_transaction;
+
+const debug = newDebug('auth:index');
 
 Auth.verify = function (name, password, auths) {
   let hasKey = false;
@@ -117,6 +120,7 @@ Auth.signTransaction = function (trx, keys) {
   const cid = new Buffer(config.get('chain_id'), 'hex');
   const buf = transaction.toBuffer(trx);
 
+  debug('transaction buffer in hex', buf.toString('hex'));
   for (const key in keys) {
     const sig = Signature.signBuffer(Buffer.concat([cid, buf]), keys[key]);
     signatures.push(sig.toBuffer());

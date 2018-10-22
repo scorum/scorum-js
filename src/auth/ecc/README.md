@@ -1,17 +1,21 @@
 # Elliptic curve cryptography functions (ECC)
+
 Private Key, Public Key, Cryptographic Signature, AES, Encryption / Decryption
 
 ```js
-import {Address, Aes, PrivateKey, PublicKey, Signature} from "ecc"
+import { Address, Aes, PrivateKey, PublicKey, Signature } from 'ecc';
 ```
 
 # Configure
+
 Update `./.npmrc` if you need to change something:
+
 ```bash
-ecc:default_address_prefix = STM
+ecc:default_address_prefix = SCR
 ```
 
 # See Also
+
 * [Config](./config/index.js)
 * [Address](./src/address.js)
 * [Aes](./src/aes.js)

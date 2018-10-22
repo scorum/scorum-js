@@ -99,7 +99,7 @@ const allTypes = {
   time_point_sec3: '2017-02-16T20:27:12'
 };
 
-describe('steem.auth: all types', () => {
+describe('scorum.auth: all types', () => {
   let { toObject, fromObject, toBuffer, fromBuffer } = AllTypes;
 
   toObject = toObject.bind(AllTypes);

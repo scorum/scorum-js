@@ -43,11 +43,10 @@ export function jsonRpc(uri, { method, id, params }) {
 
 export default class HttpTransport extends Transport {
   send(api, data, callback) {
-    const _api = this.options.useAppbaseApi ? 'condenser_api' : api;
     debug('Scorum::send', api, data);
     /* eslint-disable-next-line */
     const id = data.id || this.id++;
-    const params = [_api, data.method, data.params];
+    const params = [api, data.method, data.params];
     jsonRpc(this.options.uri, { method: 'call', id, params }).then(
       (res) => {
         callback(null, res);

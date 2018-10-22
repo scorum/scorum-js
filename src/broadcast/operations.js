@@ -208,7 +208,7 @@ module.exports = [
   {
     roles: ['active', 'owner'],
     operation: 'development_committee_empower_advertising_moderator',
-    params: ['account_name']
+    params: ['account']
   },
   {
     roles: ['active', 'owner'],

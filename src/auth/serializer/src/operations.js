@@ -13,6 +13,7 @@ const {
   bytes,
   bool,
   array,
+  unsortedArray,
   // protocol_id_type,
   static_variant,
   map,
@@ -339,20 +340,21 @@ const development_committee_transfer = new Serializer('development_committee_tra
 });
 
 const development_committee_empower_advertising_moderator = new Serializer('development_committee_empower_advertising_moderator', {
-  account_name: string
+  account: string
 });
 
 const development_committee_change_post_budgets_auction_properties = new Serializer(
   'development_committee_change_post_budgets_auction_properties',
   {
-    auction_coefficients: array(uint16)
+    auction_coefficients: unsortedArray(uint16)
   }
 );
+// development_committee_change_post_budgets_auction_properties.nosort = true;
 
 const development_committee_change_banner_budgets_auction_properties = new Serializer(
   'development_committee_change_banner_budgets_auction_properties',
   {
-    auction_coefficients: array(uint16)
+    auction_coefficients: unsortedArray(uint16)
   }
 );
 

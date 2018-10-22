@@ -35,12 +35,12 @@ export function decode(private_key, memo) {
   const mbuf = ByteBuffer.fromBinary(memo.toString('binary'), ByteBuffer.DEFAULT_CAPACITY, ByteBuffer.LITTLE_ENDIAN);
   try {
     mbuf.mark();
-    return '#' + mbuf.readVString();
+    return `#${mbuf.readVString()}`;
   } catch (e) {
     mbuf.reset();
     // Sender did not length-prefix the memo
     memo = new Buffer(mbuf.toString('binary'), 'binary').toString('utf-8');
-    return '#' + memo;
+    return `#${memo}`;
   }
 }
 
@@ -79,10 +79,10 @@ export function encode(private_key, public_key, memo, testNonce) {
   });
   // serialize
   memo = encMemo.toBuffer(memo);
-  return '#' + base58.encode(new Buffer(memo, 'binary'));
+  return `#${base58.encode(new Buffer(memo, 'binary'))}`;
 }
 
-let encodeTest = undefined;
+let encodeTest;
 
 /**
   Memo encryption has failed in the browser before.  An Error will be thrown
@@ -94,7 +94,7 @@ function checkEncryption() {
     encodeTest = true; // prevent infinate looping
     try {
       const wif = '5JdeC9P7Pbd1uGdFVEsJ41EkEnADbbHGq6p1BwFxm6txNBsQnsw';
-      const pubkey = 'STM8m5UgaFAAYQRuaNejYdS8FVLVp9Ss3K1qAVk5de6F8s3HnVbvA';
+      const pubkey = 'SCR8m5UgaFAAYQRuaNejYdS8FVLVp9Ss3K1qAVk5de6F8s3HnVbvA';
       const cyphertext = encode(wif, pubkey, '#memo爱');
       plaintext = decode(wif, cyphertext);
     } catch (e) {
@@ -106,5 +106,5 @@ function checkEncryption() {
   if (encodeTest === false) throw new Error('This environment does not support encryption.');
 }
 
-const toPrivateObj = o => (o ? (o.d ? o : PrivateKey.fromWif(o)) : o /*null or undefined*/);
-const toPublicObj = o => (o ? (o.Q ? o : PublicKey.fromString(o)) : o /*null or undefined*/);
+const toPrivateObj = o => (o ? (o.d ? o : PrivateKey.fromWif(o)) : o /* null or undefined */);
+const toPublicObj = o => (o ? (o.Q ? o : PublicKey.fromString(o)) : o /* null or undefined */);

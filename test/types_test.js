@@ -6,7 +6,7 @@ const type = require('../src/auth/serializer/src/types');
 const p = require('../src/auth/serializer/src/precision');
 const th = require('./test_helper');
 
-describe('steem.auth: types', () => {
+describe('scorum.auth: types', () => {
   it('vote_id', () => {
     const toHex = function (id) {
       const vote = type.vote_id.fromObject(id);
