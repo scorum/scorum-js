@@ -254,5 +254,32 @@ export default [
     api: 'network_broadcast_api',
     method: 'broadcast_transaction_synchronous',
     params: ['trx']
+  },
+
+  // betting_api
+  {
+    api: 'betting_api',
+    method: 'lookup_matched_bets',
+    params: ['from', 'limit']
+  },
+  {
+    api: 'betting_api',
+    method: 'lookup_pending_bets',
+    params: ['from', 'limit']
+  },
+  {
+    api: 'betting_api',
+    method: 'get_matched_bets',
+    params: ['uuids']
+  },
+  {
+    api: 'betting_api',
+    method: 'get_pending_bets',
+    params: ['uuids']
+  },
+  {
+    api: 'betting_api',
+    method: 'get_games_by_status',
+    params: ['filter']
   }
 ];

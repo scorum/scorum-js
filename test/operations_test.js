@@ -96,6 +96,40 @@ describe('scorum.auth: operation test', () => {
     assert.deepEqual(tx_hex, ops.witness_update.toHex(tx_object2));
   });
 
+  it('post_bet', () => {
+    const tx = {
+      uuid: 'e629f9aa-6b2c-46aa-8fa8-36770e7a7a5f',
+      better: 'admin',
+      game_uuid: 'e629f9aa-6b2c-46aa-8fa8-36770e7a7a5f',
+      wincase: [
+        'correct_score::yes',
+        {
+          home: 17,
+          away: 23
+        }
+      ],
+      odds: {
+        numerator: 1,
+        denominator: 2
+      },
+      stake: '10.000000000 SCR',
+      live: true
+    };
+
+    // ------------uuid---------------- --better--    ------------game_uuid----------- ----wincase--- --odds-- -----------stake---------- ---live---
+    // e629f9aa6b2c46aa8fa836770e7a7a5f 0561646d696e e629f9aa6b2c46aa8fa836770e7a7a5f  f10110017      00010002 0000e40b540200000009534352 0000000001
+    // e629f9aa6b2c46aa8fa836770e7a7a5f 0561646d696e e629f9aa6b2c46aa8fa836770e7a7a5f  f10110017      00010002 0000e40b540200000009534352 0000000001
+    const tx_hex =
+      'e629f9aa6b2c46aa8fa836770e7a7a5f0561646d696ee629f9aa6b2c46aa8fa836770e7a7a5f10110017000100020000e40b5402000000095343520000000001';
+    const tx_object1 = ops.post_bet.fromObject(tx);
+    const tx_object2 = ops.post_bet.fromHex(tx_hex);
+
+    assert.deepEqual(tx, ops.post_bet.toObject(tx_object1));
+    assert.deepEqual(tx, ops.post_bet.toObject(tx_object2));
+    assert.deepEqual(tx_hex, ops.post_bet.toHex(tx_object1));
+    assert.deepEqual(tx_hex, ops.post_bet.toHex(tx_object2));
+  });
+
   // it('proposal_create', () => {
   //   const tx = {
   //     ref_block_num: 8474,

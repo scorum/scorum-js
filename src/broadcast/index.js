@@ -9,7 +9,7 @@ import scorumAuth from '../auth';
 import { camelCase } from '../utils';
 
 const debug = newDebug('scorum:broadcast');
-const noop = function() {};
+const noop = function () {};
 const formatter = formatterFactory(scorumAPI);
 
 const scorumBroadcast = {};
@@ -23,15 +23,13 @@ const scorumBroadcast = {};
 scorumBroadcast.send = function scorumBroadcast$send(tx, privKeys, callback) {
   const resultP = scorumBroadcast
     ._prepareTransaction(tx)
-    .then(transaction => {
+    .then((transaction) => {
       debug('Signing transaction (transaction, transaction.operations)', transaction, transaction.operations);
       return Promise.join(transaction, scorumAuth.signTransaction(transaction, privKeys));
     })
     .spread((transaction, signedTransaction) => {
       debug('Broadcasting transaction (transaction, transaction.operations)', transaction, transaction.operations);
-      return scorumAPI.broadcastTransactionSynchronousAsync(signedTransaction).then(result => {
-        return Object.assign({}, result, signedTransaction);
-      });
+      return scorumAPI.broadcastTransactionSynchronousAsync(signedTransaction).then(result => Object.assign({}, result, signedTransaction));
     });
 
   resultP.nodeify(callback || noop);
@@ -39,11 +37,11 @@ scorumBroadcast.send = function scorumBroadcast$send(tx, privKeys, callback) {
 
 scorumBroadcast._prepareTransaction = function scorumBroadcast$_prepareTransaction(tx) {
   const propertiesP = scorumAPI.getDynamicGlobalPropertiesAsync();
-  return propertiesP.then(properties => {
+  return propertiesP.then((properties) => {
     // Set defaults on the transaction
-    const chainDate = new Date(properties.time + 'Z');
+    const chainDate = new Date(`${properties.time}Z`);
     const refBlockNum = (properties.last_irreversible_block_num - 1) & 0xffff;
-    return scorumAPI.getBlockAsync(properties.last_irreversible_block_num).then(block => {
+    return scorumAPI.getBlockAsync(properties.last_irreversible_block_num).then((block) => {
       const headBlockId = block.previous;
       return Object.assign(
         {
@@ -60,12 +58,11 @@ scorumBroadcast._prepareTransaction = function scorumBroadcast$_prepareTransacti
 // Generated wrapper ----------------------------------------------------------
 
 // Generate operations from operations.json
-operations.forEach(operation => {
+operations.forEach((operation) => {
   const operationName = camelCase(operation.operation);
   const operationParams = operation.params || [];
 
-  const useCommentPermlink =
-    operationParams.indexOf('parent_permlink') !== -1 && operationParams.indexOf('parent_permlink') !== -1;
+  const useCommentPermlink = operationParams.indexOf('parent_permlink') !== -1 && operationParams.indexOf('parent_permlink') !== -1;
 
   scorumBroadcast[`${operationName}With`] = function scorumBroadcast$specializedSendWith(wif, options, callback) {
     debug(`Sending operation "${operationName}" with`, { options, callback });
@@ -84,13 +81,13 @@ operations.forEach(operation => {
               options,
               options.json_metadata != null
                 ? {
-                    json_metadata: toString(options.json_metadata)
-                  }
+                  json_metadata: toString(options.json_metadata)
+                }
                 : {},
               useCommentPermlink && options.permlink == null
                 ? {
-                    permlink: formatter.commentPermlink(options.parent_author, options.parent_permlink)
-                  }
+                  permlink: formatter.commentPermlink(options.parent_author, options.parent_permlink)
+                }
                 : {}
             )
           ]

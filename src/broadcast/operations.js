@@ -219,5 +219,146 @@ module.exports = [
     roles: ['active', 'owner'],
     operation: 'development_committee_change_banner_budgets_auction_properties',
     params: ['auction_coefficients']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'cancel_pending_bets',
+    params: ['bet_uuids', 'better']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'post_bet',
+    params: ['uuid', 'better', 'game_uuid', 'wincase', 'odds', 'stake', 'live']
+  },
+  // wincases
+  {
+    roles: ['active', 'owner'],
+    operation: 'result_home::yes'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'result_home::no'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'result_draw::yes'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'result_draw::no'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'result_away::yes'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'result_away::no'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'round_home::yes'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'round_home::no'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'handicap::over',
+    params: ['threshold']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'handicap::under',
+    params: ['threshold']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'correct_score_home::yes'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'correct_score_home::no'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'correct_score_draw::yes'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'correct_score_draw::no'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'correct_score_away::yes'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'correct_score_away::no'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'correct_score::yes',
+    params: ['home', 'away']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'correct_score::no',
+    params: ['home', 'away']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'goal_home::yes'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'goal_home::no'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'goal_both::yes'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'goal_both::no'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'goal_away::yes'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'goal_away::no'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'total::over',
+    params: ['threshold']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'total::under',
+    params: ['threshold']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'total_goals_home::over',
+    params: ['threshold']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'total_goals_home::under',
+    params: ['threshold']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'total_goals_away::over',
+    params: ['threshold']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'total_goals_away::under',
+    params: ['threshold']
   }
 ];

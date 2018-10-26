@@ -56,6 +56,9 @@ ChainTypes.operations = {
   close_budget_by_advertising_moderator: 33,
   update_budget: 34,
 
+  post_bet: 40,
+  cancel_pending_bets: 41,
+
   // proposal operations
   registration_committee_add_member: 0,
   registration_committee_exclude_member: 1,

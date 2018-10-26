@@ -4,6 +4,7 @@ import SerializerImpl from './serializer';
 const {
   // id_type,
   // varint32, uint8, int64, fixed_array, object_id_type, vote_id, address,
+  int8,
   uint16,
   uint32,
   int16,
@@ -376,6 +377,57 @@ const proposal_create = new Serializer('proposal_create', {
   ])
 });
 
+const cancel_pending_bets = new Serializer('cancel_pending_bets', {
+  bet_uuids: set(uuid),
+  better: string
+});
+
+const odds = new Serializer('odds', {
+  numerator: int16,
+  denominator: int16
+});
+
+const post_bet = new Serializer('post_bet', {
+  uuid,
+  better: string,
+  game_uuid: uuid,
+  wincase: static_variant([
+    new Serializer('result_home::yes', {}),
+    new Serializer('result_home::no', {}),
+    new Serializer('result_draw::yes', {}),
+    new Serializer('result_draw::no', {}),
+    new Serializer('result_away::yes', {}),
+    new Serializer('result_away::no', {}),
+    new Serializer('round_home::yes', {}),
+    new Serializer('round_home::no', {}),
+    new Serializer('handicap::over', { threshold: int16 }),
+    new Serializer('handicap::under', { threshold: int16 }),
+    new Serializer('correct_score_home::yes', {}),
+    new Serializer('correct_score_home::no', {}),
+    new Serializer('correct_score_draw::yes', {}),
+    new Serializer('correct_score_draw::no', {}),
+    new Serializer('correct_score_away::yes', {}),
+    new Serializer('correct_score_away::no', {}),
+    new Serializer('correct_score::yes', { home: uint16, away: uint16 }),
+    new Serializer('correct_score::no', { home: uint16, away: uint16 }),
+    new Serializer('goal_home::yes', {}),
+    new Serializer('goal_home::no', {}),
+    new Serializer('goal_both::yes', {}),
+    new Serializer('goal_both::no', {}),
+    new Serializer('goal_away::yes', {}),
+    new Serializer('goal_away::no', {}),
+    new Serializer('total::over', { threshold: int16 }),
+    new Serializer('total::under', { threshold: int16 }),
+    new Serializer('total_goals_home::over', { threshold: int16 }),
+    new Serializer('total_goals_home::under', { threshold: int16 }),
+    new Serializer('total_goals_away::over', { threshold: int16 }),
+    new Serializer('total_goals_away::under', { threshold: int16 })
+  ]),
+  odds,
+  stake: asset,
+  live: bool
+});
+
 const dummy = new Serializer('dummy', {
   something: string
 });
@@ -415,7 +467,14 @@ operation.st_operations = [
   dummy,
   dummy,
   dummy, // close_budget_by_advertising_moderator,
-  update_budget
+  update_budget, // 34
+  dummy,
+  dummy,
+  dummy,
+  dummy,
+  dummy,
+  post_bet, // 40
+  cancel_pending_bets // 41
 ];
 
 const transaction = new Serializer('transaction', {

@@ -45,11 +45,13 @@ Types.asset = {
     if (symbol.length > 6) throw new Error('Symbols are not longer than 6 characters ' + symbol + '-' + symbol.length);
 
     b.writeInt64(v.to_long(amount.replace('.', '')));
+
     let dot = amount.indexOf('.'); // 0.000
     let precision = dot === -1 ? 0 : amount.length - dot - 1;
     b.writeUint8(precision);
     b.append(symbol.toUpperCase(), 'binary');
     for (let i = 0; i < 7 - symbol.length; i++) b.writeUint8(0);
+
     return;
   },
   fromObject(object) {
@@ -154,6 +156,25 @@ Types.varint32 = {
   }
 };
 
+Types.int8 = {
+  fromByteBuffer(b) {
+    return b.readInt8();
+  },
+  appendByteBuffer(b, object) {
+    b.writeInt8(object);
+    return;
+  },
+  fromObject(object) {
+    return object;
+  },
+  toObject(object, debug = {}) {
+    if (debug.use_default && object === undefined) {
+      return 0;
+    }
+    return parseInt(object);
+  }
+};
+
 Types.int16 = {
   fromByteBuffer(b) {
     return b.readInt16();
@@ -218,9 +239,9 @@ Types.uuid = {
   fromByteBuffer(b) {
     const b_copy = b.copy(b.offset, b.offset + 16);
     b.skip(16)
-    
+
     const buf = new Buffer(b_copy.toBinary(), 'binary')
-    
+
     return fp.UUIDtoString(buf);
   },
   appendByteBuffer(b, object) {

@@ -73,6 +73,39 @@ describe('scorum.broadcast:', () => {
     });
   });
 
+  // describe('post bet', () => {
+  //   beforeEach(() => Promise.delay(2000));
+
+  //   it('works', async (done) => {
+  //     const tx = await scorum.broadcast.postBetWithAsync(postingWif, {
+  //       uuid: '707cb551-2ee6-4988-8a20-2407ceb84334',
+  //       better: 'gina',
+  //       game_uuid: '505d4b88-94d9-4ee0-9e4a-a1c55f2588d7',
+  //       wincase: [
+  //         'total_goals_away::under',
+  //         {
+  //           threshold: 1000
+  //         }
+  //       ],
+  //       odds: {
+  //         numerator: 3,
+  //         denominator: 1
+  //       },
+  //       stake: '2.000000000 SCR',
+  //       live: true
+  //     });
+  //     console.log(tx);
+
+  //     // const bets = await scorum.api.lookupPendingBetsWithAsync({ limit: 100, from: 0 });
+  //     // const bets = await scorum.api.getPendingBetsWithAsync({ uuids: ['505d4b88-94d9-4ee0-9e4a-a1c55f2588d7'] });
+  //     // const bets = await scorum.api.getGamesByStatusWithAsync({ filter: ['created'] });
+  //     // console.log(JSON.stringify(bets));
+
+  //     // tx.should.have.properties(['expiration', 'ref_block_num', 'ref_block_prefix', 'extensions', 'operations', 'signatures']);
+  //     done();
+  //   });
+  // });
+
   describe('writeOperations', () => {
     it('receives a properly formatted error response', () => {
       const wif = scorum.auth.toWif('username', 'password', 'posting');
