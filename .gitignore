@@ -22,3 +22,5 @@ dist/scorum-tests.min.js*
 lib
 dist
 .vscode
+
+packages
