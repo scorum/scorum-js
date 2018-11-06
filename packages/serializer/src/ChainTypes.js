@@ -56,8 +56,6 @@ ChainTypes.operations = {
   close_budget_by_advertising_moderator: 33,
   update_budget: 34,
 
-  create_game: 35,
-
   post_bet: 40,
   cancel_pending_bets: 41,
 

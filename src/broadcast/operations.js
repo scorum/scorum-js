@@ -230,6 +230,86 @@ module.exports = [
     operation: 'post_bet',
     params: ['uuid', 'better', 'game_uuid', 'wincase', 'odds', 'stake', 'live']
   },
+  {
+    roles: ['active', 'owner'],
+    operation: 'create_game',
+    params: ['uuid', 'moderator', 'json_metadata', 'start_time', 'auto_resolve_delay_sec', 'game', 'markets']
+  },
+  // game types
+  {
+    roles: ['active', 'owner'],
+    operation: 'soccer_game'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'hockey_game'
+  },
+  // markets
+  {
+    roles: ['active', 'owner'],
+    operation: 'result_home'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'result_draw'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'result_away'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'round_home'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'handicap',
+    params: ['threshold']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'correct_score_home'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'correct_score_draw'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'correct_score_away'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'correct_score',
+    params: ['home', 'away']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'goal_home'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'goal_both'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'goal_away'
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'total',
+    params: ['threshold']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'total_goals_home',
+    params: ['threshold']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'total_goals_away',
+    params: ['threshold']
+  },
   // wincases
   {
     roles: ['active', 'owner'],

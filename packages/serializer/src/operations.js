@@ -428,34 +428,6 @@ const post_bet = new Serializer('post_bet', {
   live: bool
 });
 
-const create_game = new Serializer('create_game', {
-  uuid,
-  moderator: string,
-  json_metadata: string,
-  start_time: time_point_sec,
-  auto_resolve_delay_sec: uint32,
-  game: static_variant([new Serializer('soccer_game', {}), new Serializer('hockey_game', {})]),
-  markets: array(
-    static_variant([
-      new Serializer('result_home', {}),
-      new Serializer('result_draw', {}),
-      new Serializer('result_away', {}),
-      new Serializer('round_home', {}),
-      new Serializer('handicap', { threshold: int16 }),
-      new Serializer('correct_score_home', {}),
-      new Serializer('correct_score_draw', {}),
-      new Serializer('correct_score_away', {}),
-      new Serializer('correct_score', { home: uint16, away: uint16 }),
-      new Serializer('goal_home', {}),
-      new Serializer('goal_both', {}),
-      new Serializer('goal_away', {}),
-      new Serializer('total', { threshold: int16 }),
-      new Serializer('total_goals_home', { threshold: int16 }),
-      new Serializer('total_goals_away', { threshold: int16 })
-    ])
-  )
-});
-
 const dummy = new Serializer('dummy', {
   something: string
 });
@@ -496,7 +468,7 @@ operation.st_operations = [
   dummy,
   dummy, // close_budget_by_advertising_moderator,
   update_budget, // 34
-  create_game, // 35
+  dummy,
   dummy,
   dummy,
   dummy,
