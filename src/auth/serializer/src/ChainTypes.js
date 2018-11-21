@@ -72,7 +72,9 @@ ChainTypes.operations = {
   development_committee_transfer: 7,
   development_committee_empower_advertising_moderator: 8,
   development_committee_change_post_budgets_auction_properties: 9,
-  development_committee_change_banner_budgets_auction_properties: 10
+  development_committee_change_banner_budgets_auction_properties: 10,
+  development_committee_empower_betting_moderator: 11,
+  development_committee_change_betting_resolve_delay: 12
 };
 
 ChainTypes.proposal_operations = {};

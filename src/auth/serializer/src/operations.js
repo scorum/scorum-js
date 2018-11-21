@@ -359,6 +359,14 @@ const development_committee_change_banner_budgets_auction_properties = new Seria
   }
 );
 
+const development_committee_empower_betting_moderator = new Serializer('development_committee_empower_betting_moderator', {
+  account: string
+});
+
+const development_committee_change_betting_resolve_delay = new Serializer('development_committee_change_betting_resolve_delay', {
+  delay_sec: uint32
+});
+
 const proposal_create = new Serializer('proposal_create', {
   creator: string,
   lifetime_sec: uint32,
@@ -373,7 +381,9 @@ const proposal_create = new Serializer('proposal_create', {
     development_committee_transfer,
     development_committee_empower_advertising_moderator,
     development_committee_change_post_budgets_auction_properties,
-    development_committee_change_banner_budgets_auction_properties
+    development_committee_change_banner_budgets_auction_properties,
+    development_committee_empower_betting_moderator,
+    development_committee_change_betting_resolve_delay
   ])
 });
 

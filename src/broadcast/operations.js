@@ -222,6 +222,16 @@ module.exports = [
   },
   {
     roles: ['active', 'owner'],
+    operation: 'development_committee_empower_betting_moderator',
+    params: ['account']
+  },
+  {
+    roles: ['active', 'owner'],
+    operation: 'development_committee_change_betting_resolve_delay',
+    params: ['delay_sec']
+  },
+  {
+    roles: ['active', 'owner'],
     operation: 'cancel_pending_bets',
     params: ['bet_uuids', 'better']
   },
