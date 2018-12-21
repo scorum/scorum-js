@@ -15,6 +15,7 @@
   * [Network Broadcast API](#network-broadcast-api)
 * [Broadcast](#broadcast)
 * [Auth](#auth)
+* [Betting](#betting)
 * [Formatter](#formatter)
 
 # Install
@@ -697,6 +698,138 @@ console.log(reputation);
 ```
 var scorumPower = scorum.formatter.scorumPowerToScr(scorumPower, totalscorumPower, totalVestingFundScorum);
 console.log(scorumPower);
+```
+
+# Betting
+
+## Broadcast operations
+
+### Post Bet
+
+```
+scorum.broadcast.postBet(wif, uuid, game_uuid, wincase, odds, stake, live, function(err, result) {
+  console.log(err, result);
+});
+```
+
+```
+// EXAMPLE
+
+const tx = await scorum.broadcast.postBetWithAsync(yourWif, {
+  uuid: '707cb551-2ee6-4988-8a20-2407ceb84334',
+  better: 'john',
+  game_uuid: '505d4b88-94d9-4ee0-9e4a-a1c55f2588d7',
+  wincase: [
+    'total_goals_away::under',
+    {
+      threshold: 1000 // total under 1. if treshhold 1500 => under 1.5
+    }
+  ],
+  odds: {
+    numerator: 3,
+    denominator: 1
+  }, // => coefficient 3.0
+  stake: '2.000000000 SCR',
+  live: false
+});
+```
+
+Allow wincases:
+
+* result_home::yes // wincase: [ 'result_home::yes', {} ]
+* result_home::no // wincase: [ 'result_home::no', {} ]
+* result_draw::yes // wincase: [ 'result_draw::yes', {} ]
+* result_draw::no // wincase: [ 'result_draw::no', {} ]
+* result_away::yes // wincase: [ 'result_away::yes', {} ]
+* result_away::no // wincase: [ 'result_away::no', {} ]
+* round_home::yes // wincase: [ 'round_home::yes', {} ]
+* round_home::no // wincase: [ 'round_home::no', {} ]
+* handicap::over // wincase: [ 'handicap::over', { threshold: 1000 } ]
+* handicap::under // wincase: [ 'handicap::under', { threshold: 1000 } ]
+* correct_score_home::yes // wincase: [ 'correct_score_home::yes', {} ]
+* correct_score_home::no // wincase: [ 'correct_score_home::no', {} ]
+* correct_score_draw::yes // wincase: [ 'correct_score_draw::yes', {} ]
+* correct_score_draw::no // wincase: [ 'correct_score_draw::no', {} ]
+* correct_score_away::yes // wincase: [ 'correct_score_away::yes', {} ]
+* correct_score_away::no // wincase: [ 'correct_score_away::no', {} ]
+* correct_score::yes // wincase: [ 'correct_score::yes', { home: 1, away: 3 } ]
+* correct_score::no // wincase: [ 'correct_score::no', { home: 1, away: 3 } ]
+* goal_home::yes // wincase: [ 'goal_home::yes', {} ]
+* goal_home::no // wincase: [ 'goal_home::no', {} ]
+* goal_both::yes // wincase: [ 'goal_both::yes', {} ]
+* goal_both::no // wincase: [ 'goal_both::no', {} ]
+* goal_away::yes // wincase: [ 'goal_away::yes', {} ]
+* goal_away::no // wincase: [ 'goal_away::no', {} ]
+* total::over // wincase: [ 'total::over', { threshold: 1000 } ]
+* total::under // wincase: [ 'total::under', { threshold: 1000 } ]
+* total_goals_home::over // wincase: [ 'total_goals_home::over', { threshold: 1000 } ]
+* total_goals_home::under // wincase: [ 'total_goals_home::under', { threshold: 1000 } ]
+* total_goals_away::over // wincase: [ 'total_goals_away::over', { threshold: 1000 } ]
+* total_goals_away::under // wincase: [ 'total_goals_away::under', { threshold: 1000 } ]
+
+### Cancel pending bets
+
+```
+scorum.broadcast.cancelPendingBets(wif, bet_uuids, better, function(err, result) {
+  console.log(err, result);
+});
+```
+
+```
+// EXAMPLE
+
+const tx = await scorum.broadcast.cancelPendingBetsWithAsync(yourWif, {
+  bet_uuids: ['505d4b88-94d9-4ee0-9e4a-a1c55f2588d7', '505d4b88-94d9-4ee0-9e4a-a1c55f2588d7'],
+  better: 'john',
+});
+```
+
+## Getters
+
+### Lookup matched bets
+
+```
+scorum.broadcast.lookupMatchedBets(from, limit, function(err, result) {
+  console.log(err, result);
+});
+```
+
+### Lookup pending bets
+
+```
+scorum.broadcast.lookupPendingBets(from, limit, function(err, result) {
+  console.log(err, result);
+});
+
+// const bets = await scorum.api.lookupPendingBetsWithAsync({ limit: 100, from: 0 })
+```
+
+### Get matched bets
+
+```
+scorum.broadcast.getMatchedBets(uuids, function(err, result) {
+  console.log(err, result);
+});
+```
+
+### Get pending bets
+
+```
+scorum.broadcast.getMatchedBets(uuids, function(err, result) {
+  console.log(err, result);
+});
+
+// const bets = await scorum.api.getPendingBetsWithAsync({ uuids: ['505d4b88-94d9-4ee0-9e4a-a1c55f2588d7'] })
+```
+
+### Get games by status
+
+```
+scorum.broadcast.getGamesByStatus(filter, function(err, result) {
+  console.log(err, result);
+});
+
+// const bets = await scorum.api.getGamesByStatusWithAsync({ filter: ['created'] }
 ```
 
 # Utils

@@ -21,6 +21,7 @@ Scorum.js the JavaScript API for Scorum blockchain
   * [Network Broadcast API](https://github.com/scorum/scorum-js/tree/master/doc#network-broadcast-api)
 * [Broadcast](https://github.com/scorum/scorum-js/tree/master/doc#broadcast)
 * [Auth](https://github.com/scorum/scorum-js/tree/master/doc#auth)
+* [Betting](https://github.com/scorum/scorum-js/tree/master/doc#betting)
 * [Formatter](https://github.com/scorum/scorum-js/tree/master/doc#formatter)
 
 Here is full documentation:
