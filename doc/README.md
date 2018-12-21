@@ -815,7 +815,7 @@ scorum.broadcast.getMatchedBets(uuids, function(err, result) {
 ### Get pending bets
 
 ```
-scorum.broadcast.getMatchedBets(uuids, function(err, result) {
+scorum.broadcast.getPendingBets(uuids, function(err, result) {
   console.log(err, result);
 });
 
