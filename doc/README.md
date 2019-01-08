@@ -41,9 +41,9 @@ Default config should work with scorum. however you can change it to work with s
 as
 
 ```js
-scorum.api.setOptions({ url: 'https://testnet.scorum.com' });
+scorum.api.setOptions({ url: 'https://prodnet.scorum.com' });
 scorum.config.set('address_prefix', 'SCR');
-scorum.config.set('chain_id', 'd3c1f19a4947c296446583f988c43fd1a83818fabaf3454a0020198cb361ebd2');
+scorum.config.set('chain_id', 'db4007d45f04c1403a7e66a5c66b5b1cdfc2dde8b5335d1d2f116d592ca3dbb1');
 ```
 
 ### set
@@ -63,7 +63,7 @@ scorum.config.get('chain_id');
 Here is how to activate JSON-RPC transport:
 
 ```js
-scorum.api.setOptions({ url: 'https://testnet.scorum.com' });
+scorum.api.setOptions({ url: 'https://prodnet.scorum.com' });
 ```
 
 # API
