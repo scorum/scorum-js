@@ -69,6 +69,17 @@ const test = function (key) {
       const address = Address.fromPublic(public_key, true, 56);
       assert.equal(key.Compressed_PTS, address.toString());
     });
+    
+    
+        it("null hex to pubkey", function() {
+            var public_key = PublicKey.fromHex(key.null_hex);
+            assert.equal(key.null_address, public_key.toPublicKeyString());
+        });
+
+        it("null pubkey to hex", function() {
+            var public_key = PublicKey.fromString(key.null_address);
+            assert.equal(key.null_hex, public_key.toHex());
+        });
   });
 };
 
@@ -86,5 +97,8 @@ test({
   Uncompressed_BTC: 'SCRLAFmEtM8as1mbmjVcj5dphLdPguXquimn',
   Compressed_BTC: 'SCRANNTSEaUviJgWLzJBersPmyFZBY4jJETY',
   Uncompressed_PTS: 'SCREgj7RM6FBwSoccGaESJLC3Mi18785bM3T',
-  Compressed_PTS: 'SCRD5rYtofD6D4UHJH6mo953P5wpBfMhdMEi'
+  Compressed_PTS:	"STMD5rYtofD6D4UHJH6mo953P5wpBfMhdMEi",
+    // https://github.com/steemit/steem-js/issues/267
+    null_hex: "000000000000000000000000000000000000000000000000000000000000000000",
+    null_address: "STM1111111111111111111111111111111114T1Anm"
 });
